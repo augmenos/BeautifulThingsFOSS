@@ -46,28 +46,8 @@ struct CardView: View {
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
             
-            if let fileURL = URL(string: beautifulThing.filename) {
-                Model3D(url: fileURL) { model in
-                    model
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    if let imageURL = URL(string: beautifulThing.imageURL) {
-                        AsyncImage(url: imageURL) { image in
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 175, height: 175)
-                        } placeholder: {
-                            ProgressView()
-                        }
-                    } else {
-                        ProgressView()
-                    }
-                }
-                .frame(width: 175, height: 175)
-            } else {
-                if let imageURL = URL(string: beautifulThing.imageURL) {
+            if let imageURL = URL(string: beautifulThing.imageURL), let fileURL = URL(string: beautifulThing.filename) {
+                Link(destination: fileURL) {
                     AsyncImage(url: imageURL) { image in
                         image
                             .resizable()
