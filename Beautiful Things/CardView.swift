@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import QuickLook
 import RealityKit
 import RealityKitContent
 
 struct CardView: View {
     var beautifulThing: BeautifulThing
-    @State private var showPreview = false
+    @State private var dataSource = PreviewItemDataSource()
 
     var body: some View {
         ZStack {
@@ -19,7 +20,7 @@ struct CardView: View {
                 HStack {
                     Text(beautifulThing.category)
                     Spacer()
-                    
+
                     Button {
                         print("Button: Favorite")
                     } label: {
@@ -27,17 +28,17 @@ struct CardView: View {
                     }
                     .symbolRenderingMode(.hierarchical)
                 }
-                
+
                 Spacer()
-                
+
                 HStack {
                     VStack(alignment: .leading) {
                         Text(beautifulThing.subtitle)
                         Text(beautifulThing.title)
                     }
-                    
+
                     Spacer()
-                    
+
                     VStack(alignment: .trailing) {
                         Text(beautifulThing.year)
                     }
@@ -46,25 +47,24 @@ struct CardView: View {
             .padding(30)
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
-            
+
             if let imageURL = URL(string: beautifulThing.imageURL), let fileURL = URL(string: beautifulThing.filename) {
-                            Button(action: {
-                                showPreview = true
-                            }) {
-                                AsyncImage(url: imageURL) { image in
-                                    image
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(width: 175, height: 175)
-                                } placeholder: {
-                                    ProgressView()
-                                }
-                            }
-                            .sheet(isPresented: $showPreview) {
-                                QLPreviewControllerWrapper(previewItem: PreviewItem(url: fileURL, title: beautifulThing.title))
-                            }
-                        }
-            
+                Button(action: {
+                    dataSource.previewItemURL = fileURL
+                    let previewController = QLPreviewController()
+                    previewController.dataSource = dataSource
+                    UIApplication.shared.windows.first?.rootViewController?.present(previewController, animated: true)
+                }) {
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 175, height: 175)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                }
+            }
         }
     }
 }
