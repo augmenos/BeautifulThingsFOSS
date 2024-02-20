@@ -11,7 +11,8 @@ import RealityKitContent
 
 struct CardView: View {
     var beautifulThing: BeautifulThing
-    
+    @State private var showPreview = false
+
     var body: some View {
         ZStack {
             VStack {
@@ -47,17 +48,22 @@ struct CardView: View {
             .glassBackgroundEffect()
             
             if let imageURL = URL(string: beautifulThing.imageURL), let fileURL = URL(string: beautifulThing.filename) {
-                Link(destination: fileURL) {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 175, height: 175)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                }
-            }
+                            Button(action: {
+                                showPreview = true
+                            }) {
+                                AsyncImage(url: imageURL) { image in
+                                    image
+                                        .resizable()
+                                        .scaledToFit()
+                                        .frame(width: 175, height: 175)
+                                } placeholder: {
+                                    ProgressView()
+                                }
+                            }
+                            .sheet(isPresented: $showPreview) {
+                                QLPreviewControllerWrapper(previewItem: PreviewItem(url: fileURL, title: beautifulThing.title))
+                            }
+                        }
             
         }
     }
