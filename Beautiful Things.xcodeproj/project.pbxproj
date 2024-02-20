@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D5D2B853B48005D35D9 /* DataModel.swift */; };
+		D4267D612B853E7C005D35D9 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = D4267D602B853E7C005D35D9 /* SwiftSoup */; };
+		D4267D632B85404F005D35D9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D622B85404F005D35D9 /* CardView.swift */; };
+		D4267D652B8542E9005D35D9 /* GridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D642B8542E9005D35D9 /* GridView.swift */; };
 		D48580CE2B85365F00542BCB /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D48580CD2B85365F00542BCB /* RealityKitContent */; };
 		D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */; };
 		D48580D22B85365F00542BCB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580D12B85365F00542BCB /* ContentView.swift */; };
@@ -18,6 +22,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D4267D5D2B853B48005D35D9 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
+		D4267D622B85404F005D35D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		D4267D642B8542E9005D35D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
 		D48580C82B85365F00542BCB /* Beautiful Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Beautiful Things.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48580CC2B85365F00542BCB /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beautiful_ThingsApp.swift; sourceTree = "<group>"; };
@@ -36,6 +43,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D48580CE2B85365F00542BCB /* RealityKitContent in Frameworks */,
+				D4267D612B853E7C005D35D9 /* SwiftSoup in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,7 +73,10 @@
 				D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */,
 				D48580D12B85365F00542BCB /* ContentView.swift */,
 				D48580E22B85388500542BCB /* NavigationView.swift */,
+				D4267D642B8542E9005D35D9 /* GridView.swift */,
+				D4267D622B85404F005D35D9 /* CardView.swift */,
 				D48580D32B85365F00542BCB /* ImmersiveView.swift */,
+				D4267D5D2B853B48005D35D9 /* DataModel.swift */,
 				D48580D52B85365F00542BCB /* ImageBasedLighting.skybox */,
 				D48580D72B85366000542BCB /* Assets.xcassets */,
 				D48580DC2B85366000542BCB /* Info.plist */,
@@ -108,6 +119,7 @@
 			name = "Beautiful Things";
 			packageProductDependencies = (
 				D48580CD2B85365F00542BCB /* RealityKitContent */,
+				D4267D602B853E7C005D35D9 /* SwiftSoup */,
 			);
 			productName = "Beautiful Things";
 			productReference = D48580C82B85365F00542BCB /* Beautiful Things.app */;
@@ -137,6 +149,9 @@
 				Base,
 			);
 			mainGroup = D48580BF2B85365F00542BCB;
+			packageReferences = (
+				D4267D5F2B853E7C005D35D9 /* XCRemoteSwiftPackageReference "SwiftSoup" */,
+			);
 			productRefGroup = D48580C92B85365F00542BCB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -164,9 +179,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */,
 				D48580D22B85365F00542BCB /* ContentView.swift in Sources */,
 				D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */,
+				D4267D652B8542E9005D35D9 /* GridView.swift in Sources */,
 				D48580E32B85388500542BCB /* NavigationView.swift in Sources */,
+				D4267D632B85404F005D35D9 /* CardView.swift in Sources */,
 				D48580D42B85365F00542BCB /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -368,7 +386,23 @@
 		};
 /* End XCConfigurationList section */
 
+/* Begin XCRemoteSwiftPackageReference section */
+		D4267D5F2B853E7C005D35D9 /* XCRemoteSwiftPackageReference "SwiftSoup" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scinfu/SwiftSoup";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
+		D4267D602B853E7C005D35D9 /* SwiftSoup */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D4267D5F2B853E7C005D35D9 /* XCRemoteSwiftPackageReference "SwiftSoup" */;
+			productName = SwiftSoup;
+		};
 		D48580CD2B85365F00542BCB /* RealityKitContent */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = RealityKitContent;

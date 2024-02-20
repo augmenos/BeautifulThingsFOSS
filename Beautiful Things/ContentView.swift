@@ -10,13 +10,14 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
-
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
-
+    
+    @State private var beautifulThings: [BeautifulThing] = []
+    
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
-
+    
     var body: some View {
         VStack {
             HStack {
@@ -30,34 +31,18 @@ struct ContentView: View {
             
             NavigationView()
             
-            Model3D(named: "Scene", bundle: realityKitContentBundle)
-                .padding(.bottom, 50)
-
-            Text("Hello, world!")
-
-//            Toggle("Show Immersive Space", isOn: $showImmersiveSpace)
-//                .toggleStyle(.button)
-//                .padding(.top, 50)
+            Spacer()
+            
+            GridView(beautifulThings: beautifulThings)
+                .frame(height: 500)
+            
         }
         .padding()
-//        .onChange(of: showImmersiveSpace) { _, newValue in
-//            Task {
-//                if newValue {
-//                    switch await openImmersiveSpace(id: "ImmersiveSpace") {
-//                    case .opened:
-//                        immersiveSpaceIsShown = true
-//                    case .error, .userCancelled:
-//                        fallthrough
-//                    @unknown default:
-//                        immersiveSpaceIsShown = false
-//                        showImmersiveSpace = false
-//                    }
-//                } else if immersiveSpaceIsShown {
-//                    await dismissImmersiveSpace()
-//                    immersiveSpaceIsShown = false
-//                }
-//            }
-//        }
+        .onAppear {
+            fetchBeautifulThings(url: "https://beautifulthings.xyz") { fetchedBeautifulThings in
+                beautifulThings = fetchedBeautifulThings
+            }
+        }
     }
 }
 

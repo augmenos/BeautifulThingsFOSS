@@ -13,6 +13,7 @@ struct Beautiful_ThingsApp: App {
         WindowGroup {
             ContentView()
         }
+        .windowStyle(.plain)
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
