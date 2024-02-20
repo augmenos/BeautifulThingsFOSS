@@ -19,34 +19,45 @@ struct ContentView: View {
 
     var body: some View {
         VStack {
+            HStack {
+                Text("𖡼")
+                    .font(.system(size: 120))
+                    .padding(.trailing, 20)
+                Text("Beautiful Things")
+                    .font(.extraLargeTitle)
+                    .fontWeight(.medium)
+            }
+            
+            NavigationView()
+            
             Model3D(named: "Scene", bundle: realityKitContentBundle)
                 .padding(.bottom, 50)
 
             Text("Hello, world!")
 
-            Toggle("Show Immersive Space", isOn: $showImmersiveSpace)
-                .toggleStyle(.button)
-                .padding(.top, 50)
+//            Toggle("Show Immersive Space", isOn: $showImmersiveSpace)
+//                .toggleStyle(.button)
+//                .padding(.top, 50)
         }
         .padding()
-        .onChange(of: showImmersiveSpace) { _, newValue in
-            Task {
-                if newValue {
-                    switch await openImmersiveSpace(id: "ImmersiveSpace") {
-                    case .opened:
-                        immersiveSpaceIsShown = true
-                    case .error, .userCancelled:
-                        fallthrough
-                    @unknown default:
-                        immersiveSpaceIsShown = false
-                        showImmersiveSpace = false
-                    }
-                } else if immersiveSpaceIsShown {
-                    await dismissImmersiveSpace()
-                    immersiveSpaceIsShown = false
-                }
-            }
-        }
+//        .onChange(of: showImmersiveSpace) { _, newValue in
+//            Task {
+//                if newValue {
+//                    switch await openImmersiveSpace(id: "ImmersiveSpace") {
+//                    case .opened:
+//                        immersiveSpaceIsShown = true
+//                    case .error, .userCancelled:
+//                        fallthrough
+//                    @unknown default:
+//                        immersiveSpaceIsShown = false
+//                        showImmersiveSpace = false
+//                    }
+//                } else if immersiveSpaceIsShown {
+//                    await dismissImmersiveSpace()
+//                    immersiveSpaceIsShown = false
+//                }
+//            }
+//        }
     }
 }
 

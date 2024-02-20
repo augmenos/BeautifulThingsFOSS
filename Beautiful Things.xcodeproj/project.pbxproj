@@ -14,6 +14,7 @@
 		D48580D62B85365F00542BCB /* ImageBasedLighting.skybox in Resources */ = {isa = PBXBuildFile; fileRef = D48580D52B85365F00542BCB /* ImageBasedLighting.skybox */; };
 		D48580D82B85366000542BCB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48580D72B85366000542BCB /* Assets.xcassets */; };
 		D48580DB2B85366000542BCB /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D48580DA2B85366000542BCB /* Preview Assets.xcassets */; };
+		D48580E32B85388500542BCB /* NavigationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580E22B85388500542BCB /* NavigationView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		D48580D72B85366000542BCB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D48580DA2B85366000542BCB /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D48580DC2B85366000542BCB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D48580E22B85388500542BCB /* NavigationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */,
 				D48580D12B85365F00542BCB /* ContentView.swift */,
+				D48580E22B85388500542BCB /* NavigationView.swift */,
 				D48580D32B85365F00542BCB /* ImmersiveView.swift */,
 				D48580D52B85365F00542BCB /* ImageBasedLighting.skybox */,
 				D48580D72B85366000542BCB /* Assets.xcassets */,
@@ -163,6 +166,7 @@
 			files = (
 				D48580D22B85365F00542BCB /* ContentView.swift in Sources */,
 				D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */,
+				D48580E32B85388500542BCB /* NavigationView.swift in Sources */,
 				D48580D42B85365F00542BCB /* ImmersiveView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
