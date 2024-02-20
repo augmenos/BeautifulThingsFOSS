@@ -13,6 +13,7 @@ struct ContentView: View {
     @State private var showImmersiveSpace = false
     @State private var immersiveSpaceIsShown = false
     
+    @State private var selectedCategory: String = "All"
     @State private var beautifulThings: [BeautifulThing] = []
     
     @Environment(\.openImmersiveSpace) var openImmersiveSpace
@@ -29,23 +30,19 @@ struct ContentView: View {
                     .fontWeight(.medium)
             }
             
-            NavigationView()
+            NavigationView(selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
             
             Spacer()
             
-            GridView(beautifulThings: beautifulThings)
+            GridView(beautifulThings: beautifulThings, selectedCategory: selectedCategory)
                 .frame(height: 500)
             
         }
         .padding()
         .onAppear {
-            fetchBeautifulThings(url: "https://beautifulthings.xyz") { fetchedBeautifulThings in
+            fetchBeautifulThings(url: "https://beautifulthings.xyz", category: "All") { fetchedBeautifulThings in
                 beautifulThings = fetchedBeautifulThings
             }
         }
     }
-}
-
-#Preview(windowStyle: .automatic) {
-    ContentView()
 }

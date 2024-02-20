@@ -8,75 +8,50 @@
 import SwiftUI
 
 struct NavigationView: View {
+    @Binding var selectedCategory: String
+    @Binding var beautifulThings: [BeautifulThing]
+
     var body: some View {
         HStack {
-            Button {
-                print("Button: All")
-            } label: {
-                Text("All")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
+            CategoryButton(category: "All", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
+            CategoryButton(category: "New", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
+            CategoryButton(category: "Culture", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
+            CategoryButton(category: "Tech", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
+            CategoryButton(category: "Nature", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
+            CategoryButton(category: "Other", selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
             
-            Button {
-                print("Button: All")
-            } label: {
-                Text("New")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
 
             Button {
-                print("Button: All")
-            } label: {
-                Text("Culture")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
-
-            Button {
-                print("Button: All")
-            } label: {
-                Text("Tech")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
-
-            Button {
-                print("Button: All")
-            } label: {
-                Text("Nature")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
-
-            Button {
-                print("Button: All")
-            } label: {
-                Text("Other")
-                    .frame(width: 60)
-            }
-            .glassBackgroundEffect()
-            .padding(.trailing, 10)
-            
-            Button {
-                print("Button: All")
+                print("Button: Favorites")
             } label: {
                 Image(systemName: "star.fill")
                 Text("Favorites")
             }
             .glassBackgroundEffect()
-            .padding(.leading, 20)
-
+            .padding(.leading, 25)
         }
     }
 }
 
-#Preview {
-    NavigationView()
+struct CategoryButton: View {
+    var category: String
+    @Binding var selectedCategory: String
+    @Binding var beautifulThings: [BeautifulThing]
+
+    var body: some View {
+        Button {
+            selectedCategory = category
+            let url = category == "All" ? "https://beautifulthings.xyz" : "https://beautifulthings.xyz/category/\(category.lowercased())"
+            fetchBeautifulThings(url: url, category: category) { fetchedBeautifulThings in
+                beautifulThings = fetchedBeautifulThings
+            }
+        } label: {
+            Text(category)
+                .frame(width: 60)
+        }
+        .foregroundStyle(selectedCategory == category ? Color.black : Color.primary)
+        .background(selectedCategory == category ? Color.primary : Color.clear)
+        .glassBackgroundEffect()
+        .padding(.horizontal, 5)
+    }
 }

@@ -20,7 +20,7 @@ struct BeautifulThing: Hashable {
     var imageURL: String
 }
 
-func fetchBeautifulThings(url: String, completion: @escaping ([BeautifulThing]) -> Void) {
+func fetchBeautifulThings(url: String, category: String, completion: @escaping ([BeautifulThing]) -> Void) {
     guard let url = URL(string: url) else {
         print("Invalid URL")
         return
@@ -36,10 +36,27 @@ func fetchBeautifulThings(url: String, completion: @escaping ([BeautifulThing]) 
             let html = String(decoding: data, as: UTF8.self)
             let document = try SwiftSoup.parse(html)
             
-            let items = try document.select("div.framer-ad5wfq-container")
+            // Adjust the selector based on the category
+            let urlString = url.absoluteString
+            let itemsSelector: String
+            if urlString.contains("/category/new") {
+                itemsSelector = "div.framer-5sx04j-container"
+            } else if urlString.contains("/category/other") {
+                itemsSelector = "div.framer-112t49g-container"
+            } else if urlString.contains("/category/culture") {
+                itemsSelector = "div.framer-1l927yc-container"
+            } else if urlString.contains("/category/tech") {
+                itemsSelector = "div.framer-d5i59q-container"
+            } else if urlString.contains("/category/nature") {
+                itemsSelector = "div.framer-81wovf-container"
+            } else {
+                itemsSelector = "div.framer-ad5wfq-container"
+            }
             
+            let items = try document.select(itemsSelector)
             var beautifulThings: [BeautifulThing] = []
             
+            // Parsing logic (may need adjustments based on category-specific HTML structure)
             for item in items {
                 let title = try item.select("div.framer-u2tus0 > p").first()?.text() ?? ""
                 let subtitle = try item.select("div.framer-1l605sw > p").first()?.text() ?? ""
@@ -49,31 +66,25 @@ func fetchBeautifulThings(url: String, completion: @escaping ([BeautifulThing]) 
                 let imageURL = try item.select("img").first()?.attr("src") ?? ""
                 
                 let beautifulThing = BeautifulThing(
-                            title: title,
-                            subtitle: subtitle,
-                            filename: link,
-                            category: category,
-                            year: year,
-                            description: NSAttributedString(string: ""),
-                            attribution: "",
-                            license: "",
-                            imageURL: imageURL
-                        )
-                
+                    title: title,
+                    subtitle: subtitle,
+                    filename: link,
+                    category: category,
+                    year: year,
+                    description: NSAttributedString(string: ""),
+                    attribution: "",
+                    license: "",
+                    imageURL: imageURL
+                )
                 beautifulThings.append(beautifulThing)
             }
             
             DispatchQueue.main.async {
                 completion(beautifulThings)
             }
-            
         } catch {
             print("Error parsing HTML: \(error.localizedDescription)")
         }
     }
-
     task.resume()
 }
-
-// Usage
-//fetchBeautifulThings(url: "https://beautifulthings.xyz")

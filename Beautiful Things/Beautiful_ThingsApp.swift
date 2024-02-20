@@ -14,6 +14,7 @@ struct Beautiful_ThingsApp: App {
             ContentView()
         }
         .windowStyle(.plain)
+        .defaultSize(width: 1100, height: 900)
 
         ImmersiveSpace(id: "ImmersiveSpace") {
             ImmersiveView()
