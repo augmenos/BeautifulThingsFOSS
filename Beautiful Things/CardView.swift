@@ -29,11 +29,6 @@ struct CardView: View {
                 
                 Spacer()
                 
-                //            Model3D(named: beautifulThing.filename, bundle: realityKitContentBundle)
-                //                .padding(.bottom, 50)
-                
-                Spacer()
-                
                 HStack {
                     VStack(alignment: .leading) {
                         Text(beautifulThing.subtitle)
@@ -51,14 +46,36 @@ struct CardView: View {
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
             
-            if let imageURL = URL(string: beautifulThing.imageURL) {
-                AsyncImage(url: imageURL) { image in
-                    image
+            if let fileURL = URL(string: beautifulThing.filename) {
+                Model3D(url: fileURL) { model in
+                    model
                         .resizable()
-                        .scaledToFit()
-                        .frame(width: 175, height: 175)
+                        .aspectRatio(contentMode: .fit)
                 } placeholder: {
-                    ProgressView()
+                    if let imageURL = URL(string: beautifulThing.imageURL) {
+                        AsyncImage(url: imageURL) { image in
+                            image
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 175, height: 175)
+                        } placeholder: {
+                            ProgressView()
+                        }
+                    } else {
+                        ProgressView()
+                    }
+                }
+                .frame(width: 175, height: 175)
+            } else {
+                if let imageURL = URL(string: beautifulThing.imageURL) {
+                    AsyncImage(url: imageURL) { image in
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 175, height: 175)
+                    } placeholder: {
+                        ProgressView()
+                    }
                 }
             }
             

@@ -20,10 +20,12 @@ struct ContentView: View {
     @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     var body: some View {
+        
         VStack {
             HStack {
                 Text("𖡼")
-                    .font(.system(size: 120))
+                    .font(.extraLargeTitle)
+//                    .font(.system(size: 120)) // Messes up placement of NavigationView
                     .padding(.trailing, 20)
                 Text("Beautiful Things")
                     .font(.extraLargeTitle)
@@ -31,11 +33,12 @@ struct ContentView: View {
             }
             
             NavigationView(selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
-            
-            Spacer()
-            
+                .padding(.bottom, 30)
+                        
             GridView(beautifulThings: beautifulThings, selectedCategory: selectedCategory)
-                .frame(height: 500)
+                .padding(.top, 30)
+//                .frame(maxHeight: .infinity)
+//                .frame(height: 500)
             
         }
         .padding()
