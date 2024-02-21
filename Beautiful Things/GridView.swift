@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct GridView: View {
-    var beautifulThings: [BeautifulThing]
+    @Environment(AppModel.self) private var appModel
     var selectedCategory: String
-
+    
     var body: some View {
         ScrollView {
             LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), spacing: 50) {
-                ForEach(beautifulThings, id: \.self) { beautifulThing in
-                    CardView(beautifulThing: beautifulThing)
+                ForEach(appModel.currentCategoryItems) { item in
+                    CardView(beautifulThing: item)
                 }
             }
             .padding()

@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct Beautiful_ThingsApp: App {
+    @State private var appModel = AppModel()
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environment(appModel)
         }
         .windowStyle(.plain)
         .defaultSize(width: 1100, height: 900)

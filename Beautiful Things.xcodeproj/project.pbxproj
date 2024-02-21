@@ -14,6 +14,10 @@
 		D4267D892B85697E005D35D9 /* PreviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D882B85697E005D35D9 /* PreviewItem.swift */; };
 		D4267D8B2B85699F005D35D9 /* QLPreviewControllerWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D8A2B85699F005D35D9 /* QLPreviewControllerWrapper.swift */; };
 		D4267D8D2B856B9B005D35D9 /* PreviewItemDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D8C2B856B9B005D35D9 /* PreviewItemDataSource.swift */; };
+		D4267D902B8573BE005D35D9 /* SafariView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D8F2B8573BD005D35D9 /* SafariView.swift */; };
+		D4267D922B8578DC005D35D9 /* AppModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D912B8578DC005D35D9 /* AppModel.swift */; };
+		D4267D942B85836B005D35D9 /* DataFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D932B85836B005D35D9 /* DataFetcher.swift */; };
+		D4267D962B858FBC005D35D9 /* FavoritesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D952B858FBC005D35D9 /* FavoritesView.swift */; };
 		D48580CE2B85365F00542BCB /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D48580CD2B85365F00542BCB /* RealityKitContent */; };
 		D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */; };
 		D48580D22B85365F00542BCB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580D12B85365F00542BCB /* ContentView.swift */; };
@@ -31,6 +35,10 @@
 		D4267D882B85697E005D35D9 /* PreviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItem.swift; sourceTree = "<group>"; };
 		D4267D8A2B85699F005D35D9 /* QLPreviewControllerWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QLPreviewControllerWrapper.swift; sourceTree = "<group>"; };
 		D4267D8C2B856B9B005D35D9 /* PreviewItemDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviewItemDataSource.swift; sourceTree = "<group>"; };
+		D4267D8F2B8573BD005D35D9 /* SafariView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafariView.swift; sourceTree = "<group>"; };
+		D4267D912B8578DC005D35D9 /* AppModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppModel.swift; sourceTree = "<group>"; };
+		D4267D932B85836B005D35D9 /* DataFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataFetcher.swift; sourceTree = "<group>"; };
+		D4267D952B858FBC005D35D9 /* FavoritesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesView.swift; sourceTree = "<group>"; };
 		D48580C82B85365F00542BCB /* Beautiful Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Beautiful Things.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48580CC2B85365F00542BCB /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beautiful_ThingsApp.swift; sourceTree = "<group>"; };
@@ -66,6 +74,14 @@
 			path = QuickLook;
 			sourceTree = "<group>";
 		};
+		D4267D8E2B8573AE005D35D9 /* Safari */ = {
+			isa = PBXGroup;
+			children = (
+				D4267D8F2B8573BD005D35D9 /* SafariView.swift */,
+			);
+			path = Safari;
+			sourceTree = "<group>";
+		};
 		D48580BF2B85365F00542BCB = {
 			isa = PBXGroup;
 			children = (
@@ -87,12 +103,16 @@
 			isa = PBXGroup;
 			children = (
 				D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */,
+				D4267D912B8578DC005D35D9 /* AppModel.swift */,
 				D48580D12B85365F00542BCB /* ContentView.swift */,
 				D48580E22B85388500542BCB /* NavigationView.swift */,
 				D4267D642B8542E9005D35D9 /* GridView.swift */,
 				D4267D622B85404F005D35D9 /* CardView.swift */,
-				D48580D32B85365F00542BCB /* ImmersiveView.swift */,
+				D4267D952B858FBC005D35D9 /* FavoritesView.swift */,
 				D4267D5D2B853B48005D35D9 /* DataModel.swift */,
+				D4267D932B85836B005D35D9 /* DataFetcher.swift */,
+				D48580D32B85365F00542BCB /* ImmersiveView.swift */,
+				D4267D8E2B8573AE005D35D9 /* Safari */,
 				D4267D872B85696B005D35D9 /* QuickLook */,
 				D48580D52B85365F00542BCB /* ImageBasedLighting.skybox */,
 				D48580D72B85366000542BCB /* Assets.xcassets */,
@@ -196,12 +216,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D4267D942B85836B005D35D9 /* DataFetcher.swift in Sources */,
 				D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */,
+				D4267D902B8573BE005D35D9 /* SafariView.swift in Sources */,
 				D48580D22B85365F00542BCB /* ContentView.swift in Sources */,
+				D4267D962B858FBC005D35D9 /* FavoritesView.swift in Sources */,
 				D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */,
 				D4267D652B8542E9005D35D9 /* GridView.swift in Sources */,
 				D48580E32B85388500542BCB /* NavigationView.swift in Sources */,
 				D4267D892B85697E005D35D9 /* PreviewItem.swift in Sources */,
+				D4267D922B8578DC005D35D9 /* AppModel.swift in Sources */,
 				D4267D8D2B856B9B005D35D9 /* PreviewItemDataSource.swift in Sources */,
 				D4267D632B85404F005D35D9 /* CardView.swift in Sources */,
 				D4267D8B2B85699F005D35D9 /* QLPreviewControllerWrapper.swift in Sources */,

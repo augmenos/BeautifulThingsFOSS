@@ -6,55 +6,63 @@
 //
 
 import SwiftUI
-import QuickLook
 import RealityKit
-import RealityKitContent
 
 struct CardView: View {
-    var beautifulThing: BeautifulThing
-    @State private var dataSource = PreviewItemDataSource()
-
+    @Environment(AppModel.self) private var appModel
+    @ObservedObject var beautifulThing: BeautifulThing
+    
     var body: some View {
         ZStack {
             VStack {
                 HStack {
                     Text(beautifulThing.category)
+                        .font(.callout)
+                        .foregroundStyle(.secondary)
                     Spacer()
-
+                    
                     Button {
-                        print("Button: Favorite")
+                        //                        appModel.toggleFavorite(beautifulThing)
                     } label: {
-                        Image(systemName: "star.circle.fill")
+                        Image(systemName: beautifulThing.isFavorited ? "star.fill" : "star")
+                            .font(.system(size: 25))
+                            .foregroundStyle(.secondary)
                     }
-                    .symbolRenderingMode(.hierarchical)
+                    .buttonStyle(.plain)
+                    .foregroundStyle(.secondary)
+                    .symbolRenderingMode(.monochrome)
                 }
-
+                
                 Spacer()
-
+                
                 HStack {
                     VStack(alignment: .leading) {
                         Text(beautifulThing.subtitle)
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                         Text(beautifulThing.title)
+                            .font(.title3)
                     }
-
+                    
                     Spacer()
-
+                    
                     VStack(alignment: .trailing) {
+                        Image(systemName: "arrow.up.right")
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 2)
                         Text(beautifulThing.year)
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
             .padding(30)
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
-
-            if let imageURL = URL(string: beautifulThing.imageURL), let fileURL = URL(string: beautifulThing.filename) {
-                Button(action: {
-                    dataSource.previewItemURL = fileURL
-                    let previewController = QLPreviewController()
-                    previewController.dataSource = dataSource
-                    UIApplication.shared.windows.first?.rootViewController?.present(previewController, animated: true)
-                }) {
+            
+            if let imageURL = URL(string: beautifulThing.imageURL) {
+                Link(destination: URL(string: beautifulThing.filename)!) {
                     AsyncImage(url: imageURL) { image in
                         image
                             .resizable()

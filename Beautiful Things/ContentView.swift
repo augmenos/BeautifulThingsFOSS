@@ -10,42 +10,49 @@ import RealityKit
 import RealityKitContent
 
 struct ContentView: View {
-    @State private var showImmersiveSpace = false
-    @State private var immersiveSpaceIsShown = false
+    @Environment(AppModel.self) private var appModel
     
     @State private var selectedCategory: String = "All"
-    @State private var beautifulThings: [BeautifulThing] = []
-    
-    @Environment(\.openImmersiveSpace) var openImmersiveSpace
-    @Environment(\.dismissImmersiveSpace) var dismissImmersiveSpace
     
     var body: some View {
         
-        VStack {
-            HStack {
-                Text("𖡼")
-                    .font(.extraLargeTitle)
-//                    .font(.system(size: 120)) // Messes up placement of NavigationView
-                    .padding(.trailing, 20)
-                Text("Beautiful Things")
-                    .font(.extraLargeTitle)
-                    .fontWeight(.medium)
+        ZStack {
+            VStack {
+                Spacer(minLength: 150)
+                
+                NavigationView(selectedCategory: selectedCategory)
+                    .padding(.bottom, 30)
+                
+                if selectedCategory == "Favorites" {
+                    FavoritesView()
+                        .padding(.top, 30)
+                } else {
+                    GridView(selectedCategory: selectedCategory)
+                        .padding(.top, 30)
+                    
+                }
+                
             }
             
-            NavigationView(selectedCategory: $selectedCategory, beautifulThings: $beautifulThings)
-                .padding(.bottom, 30)
-                        
-            GridView(beautifulThings: beautifulThings, selectedCategory: selectedCategory)
-                .padding(.top, 30)
-//                .frame(maxHeight: .infinity)
-//                .frame(height: 500)
-            
+            VStack {
+                HStack {
+                    Text("𖡼")
+                        .font(.system(size: 120)) // Messes up placement of NavigationView
+                        .padding(.trailing, 20)
+                    Text("Beautiful Things")
+                        .font(.extraLargeTitle)
+                        .fontWeight(.medium)
+                }
+                
+                Spacer()
+            }
         }
+        
+        
         .padding()
         .onAppear {
-            fetchBeautifulThings(url: "https://beautifulthings.xyz", category: "All") { fetchedBeautifulThings in
-                beautifulThings = fetchedBeautifulThings
-            }
+            appModel.fetchCategoryItems(url: "https://beautifulthings.xyz")
         }
     }
 }
+
