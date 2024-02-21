@@ -56,22 +56,15 @@ struct CardView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
+                .padding(.bottom, 35)
             }
             .padding(30)
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
             
-            if let imageURL = URL(string: beautifulThing.imageURL) {
-                Link(destination: URL(string: beautifulThing.filename)!) {
-                    AsyncImage(url: imageURL) { image in
-                        image
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 175, height: 175)
-                    } placeholder: {
-                        ProgressView()
-                    }
-                }
+            if let fileURL = Bundle.main.url(forResource: "robot_walk_idle", withExtension: "usdz") {
+                ARQuickLookView(fileURL: fileURL)
+                    .frame(width: 300, height: 300)
             }
         }
     }
