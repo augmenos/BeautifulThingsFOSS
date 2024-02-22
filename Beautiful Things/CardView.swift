@@ -11,7 +11,8 @@ import RealityKit
 struct CardView: View {
     @Environment(AppModel.self) private var appModel
     @ObservedObject var beautifulThing: BeautifulThing
-    
+    @State private var localFileURL: URL?
+
     var body: some View {
         ZStack {
             VStack {
@@ -62,10 +63,43 @@ struct CardView: View {
             .frame(width: 300, height: 300)
             .glassBackgroundEffect()
             
-            if let fileURL = Bundle.main.url(forResource: "robot_walk_idle", withExtension: "usdz") {
-                ARQuickLookView(fileURL: fileURL)
-                    .frame(width: 300, height: 300)
+            if let fileURL = localFileURL {
+                            ARQuickLookView(fileURL: fileURL)
+                                .frame(width: 300, height: 300)
+                        }
+        }
+        .onAppear {
+                    downloadUSDZFile()
+                }
+    }
+    
+    private func downloadUSDZFile() {
+        guard let remoteURL = URL(string: beautifulThing.filename) else { return }
+        
+        let task = URLSession.shared.downloadTask(with: remoteURL) { tempLocalURL, response, error in
+            if let tempLocalURL = tempLocalURL, error == nil {
+                // Move the file to a permanent location
+                let fileManager = FileManager.default
+                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+                let fileName = remoteURL.lastPathComponent
+                let permanentLocalURL = documentsDirectory.appendingPathComponent(fileName)
+                
+                do {
+                    // If the file already exists, remove it before moving the new file
+                    if fileManager.fileExists(atPath: permanentLocalURL.path) {
+                        try fileManager.removeItem(at: permanentLocalURL)
+                    }
+                    try fileManager.moveItem(at: tempLocalURL, to: permanentLocalURL)
+                    
+                    DispatchQueue.main.async {
+                        self.localFileURL = permanentLocalURL
+                    }
+                } catch {
+                    print("Error moving file: \(error)")
+                }
             }
         }
+        
+        task.resume()
     }
 }

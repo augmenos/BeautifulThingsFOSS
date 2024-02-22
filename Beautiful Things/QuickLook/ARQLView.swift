@@ -40,6 +40,14 @@ struct ARQuickLookView: UIViewControllerRepresentable {
     }
 }
 
+/// To customize?
+//        func previewController(_ controller: QLPreviewController, previewItemAt index: Int) -> QLPreviewItem {
+//            let previewItem = ARQuickLookPreviewItem(fileAt: parent.fileURL)
+//            // Customize the ARQuickLookPreviewItem here
+//            previewItem.allowsContentScaling = false // Disable content scaling
+//            return previewItem
+//        }
+
 struct ARQLView: View {
     @State private var isPresentingARQuickLook = false
 
@@ -55,3 +63,4 @@ struct ARQLView: View {
         }
     }
 }
+
