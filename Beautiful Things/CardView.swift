@@ -31,11 +31,11 @@ struct CardView: View {
                     Spacer()
                     
                     Button {
-                        //                        appModel.toggleFavorite(beautifulThing)
+                        appModel.toggleFavorite(beautifulThing)
                     } label: {
                         Image(systemName: beautifulThing.isFavorited ? "heart.fill" : "heart")
                             .font(.system(size: 25))
-                            .foregroundStyle(.secondary)
+                            .foregroundStyle(.primary)
                     }
                     .buttonStyle(.plain)
                     .foregroundStyle(.secondary)
@@ -65,11 +65,11 @@ struct CardView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .padding(.bottom, 36)
-
+                .padding(.bottom, 30)
+                
             }
             .background(.clear)
-//            .backgroundStyle(.primary)
+            //            .backgroundStyle(.primary)
             .padding(30)
             .frame(width: 300, height: 300)
 //            .glassBackgroundEffect()

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NavigationView: View {
     @Environment(AppModel.self) private var appModel
-    @State var selectedCategory: String
+    @Binding var selectedCategory: String
     
     var body: some View {
         HStack {
@@ -20,31 +20,33 @@ struct NavigationView: View {
             CategoryButton(category: "Nature", selectedCategory: $selectedCategory)
             CategoryButton(category: "Other", selectedCategory: $selectedCategory)
             
+            Divider()
+                .background(.thinMaterial)
+                .frame(height: 20)
+                .padding(.horizontal, 8)
+            
+            
             Button {
-                selectedCategory = "Favorites"
+                selectedCategory = "Loved"
             } label: {
                 Image(systemName: "heart.fill")
                 Text("Loved")
             }
-            .foregroundStyle(selectedCategory == "Favorites" ? Color.black : Color.primary)
-            .background(selectedCategory == "Favorites" ? Color.primary : Color.clear)
+            .foregroundStyle(selectedCategory == "Loved" ? Color.black : Color.primary)
+            .background(selectedCategory == "Loved" ? Color.primary : Color.clear)
             .glassBackgroundEffect()
-            .padding(.leading, 25)
+            .padding(.horizontal, 5)
         }
     }
 }
 
 struct CategoryButton: View {
-    @Environment(AppModel.self) private var appModel
-    
     var category: String
     @Binding var selectedCategory: String
     
     var body: some View {
         Button {
             selectedCategory = category
-            let url = category == "All" ? "https://beautifulthings.xyz" : "https://beautifulthings.xyz/category/\(category.lowercased())"
-            appModel.fetchCategoryItems(url: url)
         } label: {
             Text(category)
                 .frame(width: 60)
@@ -55,48 +57,3 @@ struct CategoryButton: View {
         .padding(.horizontal, 5)
     }
 }
-
-
-//struct CategoryButton: View {
-//    var category: String
-//    @Binding var selectedCategory: String
-//    @Environment(AppModel.self) private var appModel
-//
-//    var body: some View {
-//        Button {
-//            selectedCategory = category
-//            let url = category == "All" ? "https://beautifulthings.xyz" : "https://beautifulthings.xyz/category/\(category.lowercased())"
-//            appModel.fetchBeautifulThings(url: url)
-//        } label: {
-//            Text(category)
-//                .frame(width: 60)
-//        }
-//        .foregroundStyle(selectedCategory == category ? Color.black : Color.primary)
-//        .background(selectedCategory == category ? Color.primary : Color.clear)
-//        .glassBackgroundEffect()
-//        .padding(.horizontal, 5)
-//    }
-//}
-
-//struct CategoryButton: View {
-//    var category: String
-//    @Binding var selectedCategory: String
-//    @Environment(AppModel.self) private var appModel
-//
-//    var body: some View {
-//        Button {
-//            selectedCategory = category
-//            let url = category == "All" ? "https://beautifulthings.xyz" : "https://beautifulthings.xyz/category/\(category.lowercased())"
-//            BeautifulThingFetcher.fetchBeautifulThings(url: url, category: category) { fetchedBeautifulThings in
-//                appModel.beautifulThings = fetchedBeautifulThings
-//            }
-//        } label: {
-//            Text(category)
-//                .frame(width: 60)
-//        }
-//        .foregroundStyle(selectedCategory == category ? Color.black : Color.primary)
-//        .background(selectedCategory == category ? Color.primary : Color.clear)
-//        .glassBackgroundEffect()
-//        .padding(.horizontal, 5)
-//    }
-//}

@@ -8,8 +8,8 @@
 import Foundation
 import SwiftSoup
 
-class BeautifulThing: Identifiable, ObservableObject, Hashable { // Hashable, Equatable ?
-    var id = UUID()
+class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
+    var id: String { filename }
     var title: String
     var subtitle: String
     var filename: String
@@ -19,6 +19,7 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable { // Hashable, Eq
     var attribution: String
     var license: String
     var imageURL: String
+    
     @Published var isFavorited: Bool = false
     
     init(title: String, subtitle: String, filename: String, category: String, year: String, description: NSAttributedString, attribution: String, license: String, imageURL: String) {

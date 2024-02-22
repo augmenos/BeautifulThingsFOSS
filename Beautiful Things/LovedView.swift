@@ -1,5 +1,5 @@
 //
-//  FavoritesView.swift
+//  LovedView.swift
 //  Beautiful Things
 //
 //  Created by Miguel Garcia Gonzalez on 2/20/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct FavoritesView: View {
+struct LovedView: View {
     @Environment(AppModel.self) private var appModel
     
     var body: some View {

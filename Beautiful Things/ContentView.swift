@@ -19,22 +19,14 @@ struct ContentView: View {
         ZStack {
             VStack {
                 Spacer(minLength: 100)
-                
-                if selectedCategory == "Favorites" {
-                    FavoritesView()
-                        .padding(.top, 30)
-                } else {
-                    GridView(selectedCategory: selectedCategory)
-                        .padding(.top, 30)
-                    
-                }
-                
+                GridView(selectedCategory: selectedCategory)
+                    .padding(.top, 30)
             }
             
             VStack {
                 HStack {
                     Text("𖡼")
-                        .font(.system(size: 120)) // Messes up placement of NavigationView
+                        .font(.system(size: 120))
                         .padding(.trailing, 20)
                     Text("Beautiful Things")
                         .font(.extraLargeTitle)
@@ -45,13 +37,13 @@ struct ContentView: View {
             }
         }
         .ornament(attachmentAnchor: .scene(.bottom), ornament: {
-            NavigationView(selectedCategory: selectedCategory)
+            NavigationView(selectedCategory: $selectedCategory)
                 .padding()
                 .glassBackgroundEffect()
         })
         .padding()
         .onAppear {
-            appModel.fetchCategoryItems(url: "https://beautifulthings.xyz")
+            appModel.fetchAllItems(url: "https://beautifulthings.xyz")
         }
     }
 }

@@ -13,11 +13,11 @@ struct Beautiful_ThingsApp: App {
 
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
                 .environment(appModel)
         }
 //        .windowStyle(.plain)
-        .defaultSize(width: 1100, height: 900)
+        .defaultSize(width: 1075, height: 950)
         
         WindowGroup(id: "WebView") {
             ContentWebView()
