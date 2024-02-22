@@ -16,7 +16,7 @@ struct Beautiful_ThingsApp: App {
             ContentView()
                 .environment(appModel)
         }
-        .windowStyle(.plain)
+//        .windowStyle(.plain)
         .defaultSize(width: 1100, height: 900)
         
         WindowGroup(id: "WebView") {

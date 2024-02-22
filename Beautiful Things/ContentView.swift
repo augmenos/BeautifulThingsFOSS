@@ -18,10 +18,7 @@ struct ContentView: View {
         
         ZStack {
             VStack {
-                Spacer(minLength: 150)
-                
-                NavigationView(selectedCategory: selectedCategory)
-                    .padding(.bottom, 30)
+                Spacer(minLength: 100)
                 
                 if selectedCategory == "Favorites" {
                     FavoritesView()
@@ -47,8 +44,11 @@ struct ContentView: View {
                 Spacer()
             }
         }
-        
-        
+        .ornament(attachmentAnchor: .scene(.bottom), ornament: {
+            NavigationView(selectedCategory: selectedCategory)
+                .padding()
+                .glassBackgroundEffect()
+        })
         .padding()
         .onAppear {
             appModel.fetchCategoryItems(url: "https://beautifulthings.xyz")

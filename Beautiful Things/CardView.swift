@@ -12,9 +12,17 @@ struct CardView: View {
     @Environment(AppModel.self) private var appModel
     @ObservedObject var beautifulThing: BeautifulThing
     @State private var localFileURL: URL?
-
+    
     var body: some View {
         ZStack {
+            
+            if let fileURL = localFileURL {
+                ARQuickLookView(fileURL: fileURL)
+                    .background(.thinMaterial)
+                    .glassBackgroundEffect()
+                    .frame(width: 300, height: 300)
+            }
+            
             VStack {
                 HStack {
                     Text(beautifulThing.category)
@@ -25,7 +33,7 @@ struct CardView: View {
                     Button {
                         //                        appModel.toggleFavorite(beautifulThing)
                     } label: {
-                        Image(systemName: beautifulThing.isFavorited ? "star.fill" : "star")
+                        Image(systemName: beautifulThing.isFavorited ? "heart.fill" : "heart")
                             .font(.system(size: 25))
                             .foregroundStyle(.secondary)
                     }
@@ -57,20 +65,19 @@ struct CardView: View {
                             .foregroundStyle(.secondary)
                     }
                 }
-                .padding(.bottom, 35)
+                .padding(.bottom, 36)
+
             }
+            .background(.clear)
+//            .backgroundStyle(.primary)
             .padding(30)
             .frame(width: 300, height: 300)
-            .glassBackgroundEffect()
-            
-            if let fileURL = localFileURL {
-                            ARQuickLookView(fileURL: fileURL)
-                                .frame(width: 300, height: 300)
-                        }
+//            .glassBackgroundEffect()
+
         }
         .onAppear {
-                    downloadUSDZFile()
-                }
+            downloadUSDZFile()
+        }
     }
     
     private func downloadUSDZFile() {

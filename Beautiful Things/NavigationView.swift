@@ -23,8 +23,8 @@ struct NavigationView: View {
             Button {
                 selectedCategory = "Favorites"
             } label: {
-                Image(systemName: "star.fill")
-                Text("Favorites")
+                Image(systemName: "heart.fill")
+                Text("Loved")
             }
             .foregroundStyle(selectedCategory == "Favorites" ? Color.black : Color.primary)
             .background(selectedCategory == "Favorites" ? Color.primary : Color.clear)
