@@ -49,9 +49,7 @@ struct ContentView: View {
                 .glassBackgroundEffect()
         })
         .padding()
-        .onAppear {
-            appModel.fetchAllItems(url: "https://beautifulthings.xyz")
-        }
+
     }
 }
 

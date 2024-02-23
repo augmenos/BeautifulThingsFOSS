@@ -47,7 +47,7 @@ struct LaunchView: View {
             }
         }
         .onAppear {
-            appModel.fetchAllItems(url: "https://beautifulthings.xyz")
+            appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories") 
         }
     }
 }

@@ -34,8 +34,8 @@ struct MainView: View {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
-            // Placeholder for About view
-            Text("About View")
+            AboutView()
+                .glassBackgroundEffect()
                 .tabItem {
                     Label("About", systemImage: "ellipsis.circle")
                 }

@@ -25,34 +25,19 @@ class BeautifulThingFetcher {
                 let html = String(decoding: data, as: UTF8.self)
                 let document = try SwiftSoup.parse(html)
                 
-                // Adjust the selector based on the category
-                let urlString = url.absoluteString
-                let itemsSelector: String
-                if urlString.contains("/category/new") {
-                    itemsSelector = "div.framer-5sx04j-container"
-                } else if urlString.contains("/category/other") {
-                    itemsSelector = "div.framer-112t49g-container"
-                } else if urlString.contains("/category/culture") {
-                    itemsSelector = "div.framer-1l927yc-container"
-                } else if urlString.contains("/category/tech") {
-                    itemsSelector = "div.framer-d5i59q-container"
-                } else if urlString.contains("/category/nature") {
-                    itemsSelector = "div.framer-81wovf-container"
-                } else {
-                    itemsSelector = "div.framer-ad5wfq-container"
-                }
+                // New selector for the items
+                let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj"
                 
                 let items = try document.select(itemsSelector)
                 var beautifulThings: [BeautifulThing] = []
                 
-                // Parsing logic (may need adjustments based on category-specific HTML structure)
                 for item in items {
-                    let title = try item.select("div.framer-u2tus0 > p").first()?.text() ?? ""
-                    let subtitle = try item.select("div.framer-1l605sw > p").first()?.text() ?? ""
-                    let year = try item.select("div.framer-b015mz > p").first()?.text() ?? ""
-                    let category = try item.select("div.framer-wlop1v > p").first()?.text() ?? ""
-                    let link = try item.select("a").first()?.attr("href") ?? ""
-                    let imageURL = try item.select("img").first()?.attr("src") ?? ""
+                    let title = try item.select("div.framer-u2tus0 > p").text()
+                    let subtitle = try item.select("div.framer-1l605sw > p").text()
+                    let year = try item.select("div.framer-b015mz > p").text()
+                    let category = try item.select("div.framer-wlop1v > p").text()
+                    let link = try item.select("div.framer-1kzr64t > div > div > a").attr("href")
+                    let imageURL = try item.select("div.framer-1kzr64t > div > div > a > img").attr("src")
                     
                     let beautifulThing = BeautifulThing(
                         title: title,
