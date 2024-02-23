@@ -11,12 +11,24 @@ struct MainView: View {
     var body: some View {
         TabView {
             ContentView()
+//                .frame(width: 1075, height: 950)
+                .glassBackgroundEffect()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
 
-            NavigationStack {
-                SearchView()
+            HStack {
+                NavigationStack {
+                    HStack {
+                        SearchView()
+                            .frame(width: 450)
+                        Spacer()
+                    }
+                }
+                .frame(width: 450)
+                .background(.clear)
+                .backgroundStyle(.clear)
+                Spacer()
             }
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
@@ -25,7 +37,7 @@ struct MainView: View {
             // Placeholder for About view
             Text("About View")
                 .tabItem {
-                    Label("About", systemImage: "info.circle")
+                    Label("About", systemImage: "ellipsis.circle")
                 }
         }
     }

@@ -72,8 +72,22 @@ struct CardView: View {
             //            .backgroundStyle(.primary)
             .padding(30)
             .frame(width: 300, height: 300)
-//            .glassBackgroundEffect()
-
+            //            .glassBackgroundEffect()
+            
+            // Better Loading View?
+//            VStack {
+//                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+//                    image
+//                        .resizable()
+//                        .scaledToFit()
+//                } placeholder: {
+//                    ProgressView()
+//                }
+//                .frame(width: 250, height: 200)
+//                .background(.thinMaterial)
+//                .padding(.bottom, 40)
+//            }
+//            
         }
         .onAppear {
             downloadUSDZFile()

@@ -54,6 +54,7 @@ struct SearchView: View {
                 .listRowSeparator(.visible, edges: .bottom)
             }
         }
+        .background(.clear)
         .padding(.horizontal)
     }
 }

@@ -10,13 +10,22 @@ import SwiftUI
 @main
 struct Beautiful_ThingsApp: App {
     @State private var appModel = AppModel()
-
+    
     var body: some Scene {
         WindowGroup {
-            MainView()
-                .environment(appModel)
+            if appModel.showLaunchScreen {
+                LaunchView()
+                    .environment(appModel)
+                    .transition(.opacity)
+                
+            } else {
+                MainView()
+                    .environment(appModel)
+                    .opacity(appModel.showLaunchScreen ? 0 : 1)
+                    .transition(.opacity)
+            }
         }
-//        .windowStyle(.plain)
+        .windowStyle(.plain)
         .defaultSize(width: 1075, height: 950)
         
         WindowGroup(id: "WebView") {
@@ -25,8 +34,7 @@ struct Beautiful_ThingsApp: App {
         }
         .windowStyle(.plain)
         .defaultSize(width: 1100, height: 900)
-
-        // VolumeWindow
+        
         WindowGroup(id: "VolumeWindow") {
             ContentWebView()
         }

@@ -9,8 +9,15 @@ import SwiftUI
 
 @Observable
 class AppModel {
+    var showLaunchScreen = true
+    
     var beautifulThings: [BeautifulThing] = []
     var userFavorites: [BeautifulThing] = []
+    
+    // Navigation
+    var titleText: String = ""
+    var isTitleFinished: Bool = false
+    var finalTitle: String = "Hello Beautiful..."
     
     func fetchAllItems(url: String) {
         print("DEBUG: Fetching data from \(url)")
@@ -72,11 +79,27 @@ class AppModel {
                 return category != "culture" && category != "tech" && category != "nature"
             }
         case "loved":
-            return userFavorites
+            return userFavorites.filter { $0.isFavorited }
         default:
             return beautifulThings.filter { $0.category.lowercased() == category.lowercased() }
         }
     }
+    
+//    func filterItems(forCategory category: String) -> [BeautifulThing] {
+//        switch category.lowercased() {
+//        case "all":
+//            return beautifulThings
+//        case "other":
+//            return beautifulThings.filter { item in
+//                let category = item.category.lowercased()
+//                return category != "culture" && category != "tech" && category != "nature"
+//            }
+//        case "loved":
+//            return userFavorites
+//        default:
+//            return beautifulThings.filter { $0.category.lowercased() == category.lowercased() }
+//        }
+//    }
     
     func toggleFavorite(_ beautifulThing: BeautifulThing) {
         if let index = beautifulThings.firstIndex(where: { $0.filename == beautifulThing.filename }) {
