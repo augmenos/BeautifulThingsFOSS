@@ -40,7 +40,7 @@ struct LaunchView: View {
             isFinished: $appModel.isTitleFinished,
             isAnimated: !appModel.isTitleFinished)
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
                 withAnimation(.easeInOut(duration: 2.0)) {
                     appModel.showLaunchScreen = false
                 }

@@ -2,7 +2,7 @@
 //  TypeTextModifier.swift
 //  Beautiful Things
 //
-//  Created by Apple Inc.
+//  Modified code created by Apple Inc. under open license.
 //
 
 import SwiftUI

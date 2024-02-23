@@ -35,6 +35,7 @@
 		D4B70AA22B88F9DE00419269 /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B70AA12B88F9DE00419269 /* LaunchView.swift */; };
 		D4B70AA42B88FF8F00419269 /* TypeTextModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4B70AA32B88FF8F00419269 /* TypeTextModifier.swift */; };
 		D4ED12F42B891AD600325367 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ED12F32B891AD600325367 /* AboutView.swift */; };
+		D4ED12F62B89362000325367 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ED12F52B89362000325367 /* DescriptionView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -67,6 +68,7 @@
 		D4B70AA12B88F9DE00419269 /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		D4B70AA32B88FF8F00419269 /* TypeTextModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypeTextModifier.swift; sourceTree = "<group>"; };
 		D4ED12F32B891AD600325367 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; sourceTree = "<group>"; };
+		D4ED12F52B89362000325367 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +135,7 @@
 				D48580E22B85388500542BCB /* NavigationView.swift */,
 				D4267D642B8542E9005D35D9 /* GridView.swift */,
 				D4267D622B85404F005D35D9 /* CardView.swift */,
+				D4ED12F52B89362000325367 /* DescriptionView.swift */,
 				D4267D952B858FBC005D35D9 /* LovedView.swift */,
 				D4B70AA12B88F9DE00419269 /* LaunchView.swift */,
 				D4267D5D2B853B48005D35D9 /* DataModel.swift */,
@@ -250,6 +253,7 @@
 				D4B70AA02B87D7C000419269 /* SearchView.swift in Sources */,
 				D4B70A9E2B87D77C00419269 /* MainView.swift in Sources */,
 				D4267D942B85836B005D35D9 /* DataFetcher.swift in Sources */,
+				D4ED12F62B89362000325367 /* DescriptionView.swift in Sources */,
 				D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */,
 				D4267D902B8573BE005D35D9 /* SafariView.swift in Sources */,
 				D48580D22B85365F00542BCB /* ContentView.swift in Sources */,

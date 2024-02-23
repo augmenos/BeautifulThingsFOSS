@@ -31,7 +31,7 @@ struct ContentView: View {
                     HStack {
                         Text("𖡼")
                             .font(.system(size: 120))
-                            .padding(.trailing, 20)
+                            .padding(.trailing, 10)
                         Text("Beautiful Things")
                             .font(.extraLargeTitle)
                             .fontWeight(.medium)

@@ -12,6 +12,7 @@ struct CardView: View {
     @Environment(AppModel.self) private var appModel
     @ObservedObject var beautifulThing: BeautifulThing
     @State private var localFileURL: URL?
+    @State private var showSheet = false
     
     var body: some View {
         ZStack {
@@ -56,10 +57,15 @@ struct CardView: View {
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Image(systemName: "arrow.up.right")
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
-                            .padding(.bottom, 2)
+                        Button {
+                            showSheet = true
+                        } label: {
+                            Image(systemName: "arrow.up.right")
+                                .font(.callout)
+                                .foregroundStyle(.secondary)
+                                .padding(.bottom, 2)
+                        }
+                        .buttonStyle(.plain)
                         Text(beautifulThing.year)
                             .font(.callout)
                             .foregroundStyle(.secondary)
@@ -75,19 +81,22 @@ struct CardView: View {
             //            .glassBackgroundEffect()
             
             // Better Loading View?
-//            VStack {
-//                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-//                    image
-//                        .resizable()
-//                        .scaledToFit()
-//                } placeholder: {
-//                    ProgressView()
-//                }
-//                .frame(width: 250, height: 200)
-//                .background(.thinMaterial)
-//                .padding(.bottom, 40)
-//            }
-//            
+            //            VStack {
+            //                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+            //                    image
+            //                        .resizable()
+            //                        .scaledToFit()
+            //                } placeholder: {
+            //                    ProgressView()
+            //                }
+            //                .frame(width: 250, height: 200)
+            //                .background(.thinMaterial)
+            //                .padding(.bottom, 40)
+            //            }
+            //
+        }
+        .sheet(isPresented: $showSheet) {
+            DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
         }
         .onAppear {
             downloadUSDZFile()
