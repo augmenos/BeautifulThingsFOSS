@@ -13,17 +13,10 @@ struct CardView: View {
     @ObservedObject var beautifulThing: BeautifulThing
     @State private var localFileURL: URL?
     @State private var showSheet = false
-    
+    @State private var isARQuickLookLoaded = false
+
     var body: some View {
         ZStack {
-            
-            if let fileURL = localFileURL {
-                ARQuickLookView(fileURL: fileURL)
-                    .background(.thinMaterial)
-                    .glassBackgroundEffect()
-                    .frame(width: 300, height: 300)
-            }
-            
             VStack {
                 HStack {
                     Text(beautifulThing.category)
@@ -60,40 +53,68 @@ struct CardView: View {
                         Button {
                             showSheet = true
                         } label: {
-                            Image(systemName: "arrow.up.right")
-                                .font(.callout)
-                                .foregroundStyle(.secondary)
-                                .padding(.bottom, 2)
+                            VStack(alignment: .trailing) {
+                                Image(systemName: "arrow.up.right")
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                                    .padding(.bottom, 2)
+                                Text(beautifulThing.year)
+                                    .font(.callout)
+                                    .foregroundStyle(.secondary)
+                            }
                         }
                         .buttonStyle(.plain)
-                        Text(beautifulThing.year)
-                            .font(.callout)
-                            .foregroundStyle(.secondary)
+
                     }
                 }
                 .padding(.bottom, 30)
                 
             }
-            .background(.clear)
-            //            .backgroundStyle(.primary)
             .padding(30)
+            .background(.thinMaterial)
+            .glassBackgroundEffect()
+//            .background(.clear)
+            //            .backgroundStyle(.primary)
+//            .padding(30)
             .frame(width: 300, height: 300)
             //            .glassBackgroundEffect()
             
+            /// ARQuickLook Layer
+            
+            if let fileURL = localFileURL {
+                           ARQuickLookView(fileURL: fileURL)
+                               .frame(width: 300, height: 300)
+                               .onAppear {
+                                   isARQuickLookLoaded = true // Set to true when ARQuickLookView appears
+                               }
+                       } else {
+                           // Show a ProgressView while the ARQuickLookView is loading
+                           ProgressView()
+                               .scaleEffect(2)
+                               .frame(width: 300, height: 300)
+                       }
+            
+//            if let fileURL = localFileURL {
+//                ARQuickLookView(fileURL: fileURL)
+////                    .background(.thinMaterial)
+////                    .glassBackgroundEffect()
+//                    .frame(width: 300, height: 300)
+//            }
+//            
             // Better Loading View?
-            //            VStack {
-            //                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-            //                    image
-            //                        .resizable()
-            //                        .scaledToFit()
-            //                } placeholder: {
-            //                    ProgressView()
-            //                }
-            //                .frame(width: 250, height: 200)
-            //                .background(.thinMaterial)
-            //                .padding(.bottom, 40)
-            //            }
-            //
+//                        VStack {
+//                            AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+//                                image
+//                                    .resizable()
+//                                    .scaledToFit()
+//                            } placeholder: {
+//                                ProgressView()
+//                            }
+//                            .frame(width: 250, height: 130)
+//                            .background(.thinMaterial)
+//                            .padding(.bottom, 40)
+//                        }
+            
         }
         .sheet(isPresented: $showSheet) {
             DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
