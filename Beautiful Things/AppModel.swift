@@ -110,6 +110,7 @@ class AppModel {
                 userFavorites.removeAll { $0.filename == beautifulThing.filename }
             }
             saveFavorites()
+            print("DEBUG: User favorites count: \(userFavorites.count)")
         }
     }
     

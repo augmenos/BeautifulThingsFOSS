@@ -25,8 +25,8 @@ class BeautifulThingFetcher {
                 let html = String(decoding: data, as: UTF8.self)
                 let document = try SwiftSoup.parse(html)
                 
-                // New selector for the items
-                let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj"
+                // let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj"
+                let itemsSelector = "div.framer-1gmgbs9"
                 
                 let items = try document.select(itemsSelector)
                 var beautifulThings: [BeautifulThing] = []
@@ -52,6 +52,11 @@ class BeautifulThingFetcher {
                     )
                     beautifulThings.append(beautifulThing)
                 }
+                
+                /// Helpful Debug Stats
+                print("DEBUG: Fetched \(beautifulThings.count) beautiful things.")
+                let dataSize = Double(data.count) / 1024.0 / 1024.0 // Convert to megabytes
+                print("DEBUG: Fetched data size \(dataSize) MB")
                 
                 DispatchQueue.main.async {
                     completion(beautifulThings)

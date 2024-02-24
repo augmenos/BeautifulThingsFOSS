@@ -14,7 +14,7 @@ struct CardView: View {
     @State private var localFileURL: URL?
     @State private var showSheet = false
     @State private var isARQuickLookLoaded = false
-
+    
     var body: some View {
         ZStack {
             VStack {
@@ -64,7 +64,7 @@ struct CardView: View {
                             }
                         }
                         .buttonStyle(.plain)
-
+                        
                     }
                 }
                 .padding(.bottom, 30)
@@ -73,47 +73,51 @@ struct CardView: View {
             .padding(30)
             .background(.thinMaterial)
             .glassBackgroundEffect()
-//            .background(.clear)
+            //            .background(.clear)
             //            .backgroundStyle(.primary)
-//            .padding(30)
+            //            .padding(30)
             .frame(width: 300, height: 300)
             //            .glassBackgroundEffect()
             
             /// ARQuickLook Layer
             
             if let fileURL = localFileURL {
-                           ARQuickLookView(fileURL: fileURL)
-                               .frame(width: 300, height: 300)
-                               .onAppear {
-                                   isARQuickLookLoaded = true // Set to true when ARQuickLookView appears
-                               }
-                       } else {
-                           // Show a ProgressView while the ARQuickLookView is loading
-                           ProgressView()
-                               .scaleEffect(2)
-                               .frame(width: 300, height: 300)
-                       }
+                ARQuickLookView(fileURL: fileURL)
+                    .frame(width: 300, height: 300)
+                    .onAppear {
+                        isARQuickLookLoaded = true
+                    }
+                    .onDisappear {
+                        /// Performance improvments.
+                        localFileURL = nil
+                        isARQuickLookLoaded = false
+                    }
+            } else {
+                ProgressView()
+                    .scaleEffect(2)
+                    .frame(width: 300, height: 300)
+            }
             
-//            if let fileURL = localFileURL {
-//                ARQuickLookView(fileURL: fileURL)
-////                    .background(.thinMaterial)
-////                    .glassBackgroundEffect()
-//                    .frame(width: 300, height: 300)
-//            }
-//            
+            //            if let fileURL = localFileURL {
+            //                ARQuickLookView(fileURL: fileURL)
+            ////                    .background(.thinMaterial)
+            ////                    .glassBackgroundEffect()
+            //                    .frame(width: 300, height: 300)
+            //            }
+            //
             // Better Loading View?
-//                        VStack {
-//                            AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-//                                image
-//                                    .resizable()
-//                                    .scaledToFit()
-//                            } placeholder: {
-//                                ProgressView()
-//                            }
-//                            .frame(width: 250, height: 130)
-//                            .background(.thinMaterial)
-//                            .padding(.bottom, 40)
-//                        }
+            //                        VStack {
+            //                            AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+            //                                image
+            //                                    .resizable()
+            //                                    .scaledToFit()
+            //                            } placeholder: {
+            //                                ProgressView()
+            //                            }
+            //                            .frame(width: 250, height: 130)
+            //                            .background(.thinMaterial)
+            //                            .padding(.bottom, 40)
+            //                        }
             
         }
         .sheet(isPresented: $showSheet) {
@@ -129,21 +133,30 @@ struct CardView: View {
         
         let task = URLSession.shared.downloadTask(with: remoteURL) { tempLocalURL, response, error in
             if let tempLocalURL = tempLocalURL, error == nil {
-                // Move the file to a permanent location
+                /// Move the file to a permanent location.
                 let fileManager = FileManager.default
                 let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
                 let fileName = remoteURL.lastPathComponent
                 let permanentLocalURL = documentsDirectory.appendingPathComponent(fileName)
                 
                 do {
-                    // If the file already exists, remove it before moving the new file
+                    /// If the file already exists, remove it before moving the new file.
                     if fileManager.fileExists(atPath: permanentLocalURL.path) {
                         try fileManager.removeItem(at: permanentLocalURL)
                     }
                     try fileManager.moveItem(at: tempLocalURL, to: permanentLocalURL)
                     
+                    /// Debug: Print the size of the downloaded file.
+                    let fileSize = try fileManager.attributesOfItem(atPath: permanentLocalURL.path)[.size] as? NSNumber
+                    let fileSizeInMB = Double(truncating: fileSize ?? 0) / 1024.0 / 1024.0
+                    print("DEBUG: Downloaded \'\(fileName)\' (\(fileSizeInMB) MB)")
+                    
                     DispatchQueue.main.async {
                         self.localFileURL = permanentLocalURL
+                        
+                        /// Debug: Calculate and print the total directory size.
+                        let totalDirectorySize = self.calculateTotalDirectorySize()
+                        print("DEBUG: Total directory size: \(totalDirectorySize) MB")
                     }
                 } catch {
                     print("Error moving file: \(error)")
@@ -152,5 +165,26 @@ struct CardView: View {
         }
         
         task.resume()
+    }
+    
+    private func calculateTotalDirectorySize() -> Double {
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        do {
+            let fileURLs = try fileManager.contentsOfDirectory(at: documentsDirectory, includingPropertiesForKeys: [.fileSizeKey], options: .skipsHiddenFiles)
+            
+            let totalSize = fileURLs.reduce(0) { total, fileURL in
+                if let fileSize = try? fileURL.resourceValues(forKeys: [.fileSizeKey]).fileSize {
+                    return total + Double(fileSize)
+                }
+                return total
+            }
+            
+            return totalSize / 1024.0 / 1024.0
+        } catch {
+            print("Error calculating directory size: \(error)")
+            return 0
+        }
     }
 }

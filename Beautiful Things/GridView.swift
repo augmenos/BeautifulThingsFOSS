@@ -13,7 +13,7 @@ struct GridView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), spacing: 50) {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1), spacing: 50) {
                 ForEach(appModel.filterItems(forCategory: selectedCategory)) { item in
                     CardView(beautifulThing: item)
                 }
@@ -22,17 +22,3 @@ struct GridView: View {
         }
     }
 }
-
-/// Crashed app but gird worked better? 
-//var body: some View {
-//    ScrollView {
-//        LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), spacing: 50) {
-//            ForEach(appModel.beautifulThings.filter { item in
-//                selectedCategory == "All" || item.category.lowercased() == selectedCategory.lowercased() || (selectedCategory == "Loved" && item.isFavorited)
-//            }.sorted(by: { $0.title < $1.title }), id: \.id) { item in
-//                CardView(beautifulThing: item)
-//            }
-//        }
-//        .padding()
-//    }
-//}
