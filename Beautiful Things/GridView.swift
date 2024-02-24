@@ -13,7 +13,7 @@ struct GridView: View {
     
     var body: some View {
         ScrollView {
-            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 1), spacing: 50) {
+            LazyVGrid(columns: Array(repeating: .init(.flexible()), count: 3), spacing: 50) {
                 ForEach(appModel.filterItems(forCategory: selectedCategory)) { item in
                     CardView(beautifulThing: item)
                 }

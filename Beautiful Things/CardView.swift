@@ -17,6 +17,40 @@ struct CardView: View {
     
     var body: some View {
         ZStack {
+            /// ARQuickLook Layer
+            VStack {
+                if let fileURL = localFileURL {
+                    ARQuickLookView(fileURL: fileURL)
+                        .frame(width: 300, height: 300)
+                        .onAppear {
+                            isARQuickLookLoaded = true
+                        }
+                        .onDisappear {
+                            /// Performance improvments.
+                            localFileURL = nil
+                            isARQuickLookLoaded = false
+                        }
+                } else {
+                    ProgressView()
+                        .scaleEffect(2)
+                        .frame(width: 300, height: 300)
+                }
+            }
+            .background(.thinMaterial)
+            .glassBackgroundEffect()
+            
+            /// Invisible rectangle to recognize scrolling over ARQL. Not working as expected on actual hardware. Comment from here to enable/disable:
+//            Button {
+//                print("Scrolling")
+//            } label: {
+//                Text("")
+//                    .frame(width: 300, height: 125)
+//            }
+//            .buttonBorderShape(.roundedRectangle(radius: 0))
+//            .buttonStyle(.plain)
+//            .padding(.bottom, 46)
+            /// end commenting.
+            
             VStack {
                 HStack {
                     Text(beautifulThing.category)
@@ -71,41 +105,12 @@ struct CardView: View {
                 
             }
             .padding(30)
-            .background(.thinMaterial)
-            .glassBackgroundEffect()
-            //            .background(.clear)
-            //            .backgroundStyle(.primary)
-            //            .padding(30)
+//            .background(.clear)
+//            .opacity(0.01)
+//            .glassBackgroundEffect()
             .frame(width: 300, height: 300)
-            //            .glassBackgroundEffect()
             
-            /// ARQuickLook Layer
-            
-            if let fileURL = localFileURL {
-                ARQuickLookView(fileURL: fileURL)
-                    .frame(width: 300, height: 300)
-                    .onAppear {
-                        isARQuickLookLoaded = true
-                    }
-                    .onDisappear {
-                        /// Performance improvments.
-                        localFileURL = nil
-                        isARQuickLookLoaded = false
-                    }
-            } else {
-                ProgressView()
-                    .scaleEffect(2)
-                    .frame(width: 300, height: 300)
-            }
-            
-            //            if let fileURL = localFileURL {
-            //                ARQuickLookView(fileURL: fileURL)
-            ////                    .background(.thinMaterial)
-            ////                    .glassBackgroundEffect()
-            //                    .frame(width: 300, height: 300)
-            //            }
-            //
-            // Better Loading View?
+            /// Better Loading View?
             //                        VStack {
             //                            AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
             //                                image
@@ -119,6 +124,7 @@ struct CardView: View {
             //                            .padding(.bottom, 40)
             //                        }
             
+
         }
         .sheet(isPresented: $showSheet) {
             DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)

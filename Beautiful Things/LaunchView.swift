@@ -47,7 +47,8 @@ struct LaunchView: View {
             }
         }
         .onAppear {
-            appModel.fetchAllItems(url: "https://beautifulthings.xyz/") // Production URL: https://beautifulthings.xyz/category/random-access-memories
+            appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories") // Production URL: https://beautifulthings.xyz/category/random-access-memories
+            // Must also change div.framer in DataFetcher.
         }
     }
 }
