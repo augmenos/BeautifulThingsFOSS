@@ -21,20 +21,21 @@ struct MainView: View {
                 NavigationStack {
                     HStack {
                         SearchView()
-                            .frame(width: 450)
-                        Spacer()
+                            .glassBackgroundEffect()
+                            .frame(width: 600)
+//                        Spacer()
                     }
                 }
-                .frame(width: 450)
-                .background(.clear)
-                .backgroundStyle(.clear)
-                Spacer()
+                .glassBackgroundEffect()
+                .frame(width: 600)
+                //                Spacer()
             }
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")
                 }
 
             AboutView()
+                .frame(width: 600)
                 .glassBackgroundEffect()
                 .tabItem {
                     Label("About", systemImage: "ellipsis.circle")

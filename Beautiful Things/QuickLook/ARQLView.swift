@@ -55,11 +55,13 @@ struct ARQLView: View {
         Button("Show AR Quick Look") {
             isPresentingARQuickLook = true
         }
+        .focusEffectDisabled(true)
         .sheet(isPresented: $isPresentingARQuickLook) {
             ARQuickLookView(fileURL: Bundle.main.url(forResource: "robot_walk_idle", withExtension: "usdz")!)
+                .focusEffectDisabled()
         }
         .onAppear {
-            isPresentingARQuickLook = true
+            isPresentingARQuickLook = false
         }
     }
 }

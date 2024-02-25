@@ -18,7 +18,7 @@ struct SearchView: View {
         print("Total items: \(appModel.beautifulThings.count), Filtered items: \(items.count)")
         return items
     }
-    
+
     var body: some View {
         VStack {
             TextField("Search", text: $searchText)
@@ -39,22 +39,24 @@ struct SearchView: View {
                         }
                     }
                 )
-            
-            List(filteredItems) { item in
-                NavigationLink(destination: CardView(beautifulThing: item)) {
-                    HStack {
-                        Text(item.subtitle)
-                        Text(item.title)
-                            .bold()
+
+            List {
+                ForEach(filteredItems) { item in
+                    NavigationLink(destination: CardView(beautifulThing: item)) {
+                        HStack {
+                            Text(item.subtitle)
+                            Text(item.title)
+                                .bold()
+                        }
+                        .foregroundStyle(.primary)
+                        .padding(.vertical, 8)
                     }
-                    .foregroundStyle(.primary)
-                    .padding(.vertical, 8)
+                    //.frame(maxWidth: .infinity, alignment: .leading)
+                    //.listRowSeparator(.thin, edges: .bottom) /// Showing double lines, not working as expected.
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .listRowSeparator(.visible, edges: .bottom)
             }
+            .listStyle(PlainListStyle())
         }
-        .background(.clear)
         .padding(.horizontal)
     }
 }

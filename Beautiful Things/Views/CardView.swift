@@ -21,7 +21,7 @@ struct CardView: View {
             VStack {
                 if let fileURL = localFileURL {
                     ARQuickLookView(fileURL: fileURL)
-                        .frame(width: 300, height: 300)
+                        .frame(width: 400, height: 400)
                         .onAppear {
                             isARQuickLookLoaded = true
                         }
@@ -67,7 +67,7 @@ struct CardView: View {
                 } placeholder: {
                     ProgressView()
                 }
-                .frame(width: 300, height: 250)
+                .frame(width: 400, height: 350)
                 .background(.clear)
                 .padding(.bottom, 45)
             }
@@ -129,7 +129,7 @@ struct CardView: View {
             //            .background(.clear)
             //            .opacity(0.01)
             //            .glassBackgroundEffect()
-            .frame(width: 300, height: 300)
+            .frame(width: 400, height: 400)
 
             
             

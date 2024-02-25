@@ -16,14 +16,9 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            if appModel.showLaunchScreen {
-                LaunchView()
-                    .transition(.opacity)
-            } else {
                 VStack {
-                    Spacer(minLength: 80)
+                    Spacer(minLength: 150)
                     GridView(selectedCategory: selectedCategory)
-                        .padding(.top, 30)
                 }
                 
                 VStack {
@@ -35,10 +30,9 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.medium)
                     }
-                    
                     Spacer()
                 }
-            }
+
             
         }
         .ornament(attachmentAnchor: .scene(.bottom), ornament: {
