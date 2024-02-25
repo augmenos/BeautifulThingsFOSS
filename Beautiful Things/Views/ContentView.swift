@@ -15,7 +15,6 @@ struct ContentView: View {
     @State private var selectedCategory: String = "All"
     
     var body: some View {
-        
         ZStack {
             if appModel.showLaunchScreen {
                 LaunchView()
@@ -41,7 +40,6 @@ struct ContentView: View {
                 }
             }
             
-            
         }
         .ornament(attachmentAnchor: .scene(.bottom), ornament: {
             NavigationView(selectedCategory: $selectedCategory)
@@ -49,7 +47,7 @@ struct ContentView: View {
                 .glassBackgroundEffect()
         })
         .padding()
-
+        
     }
 }
 

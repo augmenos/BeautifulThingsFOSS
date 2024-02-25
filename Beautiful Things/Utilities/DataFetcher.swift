@@ -32,6 +32,8 @@ class BeautifulThingFetcher {
                 var beautifulThings: [BeautifulThing] = []
                 
                 for item in items {
+//                    print(try item.outerHtml())
+                    
                     let title = try item.select("div.framer-u2tus0 > p").text()
                     let subtitle = try item.select("div.framer-1l605sw > p").text()
                     let year = try item.select("div.framer-b015mz > p").text()
@@ -54,9 +56,14 @@ class BeautifulThingFetcher {
                 }
                 
                 /// Helpful Debug Stats
+                /// Seems to be fetching 4x for each item but size is minimal so shouldn't cause issue?
                 print("DEBUG: Fetched \(beautifulThings.count) beautiful things.")
-                let dataSize = Double(data.count) / 1024.0 / 1024.0 // Convert to megabytes
+                let dataSize = Double(data.count) / 1024.0 / 1024.0
                 print("DEBUG: Fetched data size \(dataSize) MB")
+                
+                beautifulThings.enumerated().forEach { index, beautifulThing in
+                    print("DEBUG: Fetched \(beautifulThing.title) [\(index)]")
+                }
                 
                 DispatchQueue.main.async {
                     completion(beautifulThings)

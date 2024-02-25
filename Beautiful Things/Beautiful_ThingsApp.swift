@@ -28,21 +28,5 @@ struct Beautiful_ThingsApp: App {
         }
         .windowStyle(.plain)
         .defaultSize(width: 1075, height: 950)
-        
-        WindowGroup(id: "WebView") {
-            ContentWebView()
-                .environment(appModel)
-        }
-        .windowStyle(.plain)
-        .defaultSize(width: 1100, height: 900)
-        
-        WindowGroup(id: "VolumeWindow") {
-            ContentWebView()
-        }
-        .windowStyle(.volumetric)
-        
-        ImmersiveSpace(id: "ImmersiveSpace") {
-            ImmersiveView()
-        }.immersionStyle(selection: .constant(.progressive), in: .progressive)
     }
 }

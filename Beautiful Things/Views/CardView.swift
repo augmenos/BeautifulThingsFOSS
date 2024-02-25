@@ -26,30 +26,51 @@ struct CardView: View {
                             isARQuickLookLoaded = true
                         }
                         .onDisappear {
-                            /// Performance improvments.
                             localFileURL = nil
                             isARQuickLookLoaded = false
                         }
                 } else {
-                    ProgressView()
-                        .scaleEffect(2)
-                        .frame(width: 300, height: 300)
+//                    ProgressView()
+//                        .scaleEffect(2)
+//                        .frame(width: 300, height: 300)
                 }
             }
             .background(.thinMaterial)
             .glassBackgroundEffect()
             
+            VStack {
+                Text("") /// Empty view to hide ARQL image.
+            }
+            .frame(width: 300, height: 250)
+//            .glassBackgroundEffect()
+            .background(.clear)
+            .padding(.bottom, 45)
+            
             /// Invisible rectangle to recognize scrolling over ARQL. Not working as expected on actual hardware. Comment from here to enable/disable:
-//            Button {
-//                print("Scrolling")
-//            } label: {
-//                Text("")
-//                    .frame(width: 300, height: 125)
-//            }
-//            .buttonBorderShape(.roundedRectangle(radius: 0))
-//            .buttonStyle(.plain)
-//            .padding(.bottom, 46)
+            //            Button {
+            //                print("Scrolling")
+            //            } label: {
+            //                Text("")
+            //                    .frame(width: 300, height: 125)
+            //            }
+            //            .buttonBorderShape(.roundedRectangle(radius: 0))
+            //            .buttonStyle(.plain)
+            //            .padding(.bottom, 46)
             /// end commenting.
+            
+            /// Better Loading View?
+            VStack {
+                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    ProgressView()
+                }
+                .frame(width: 300, height: 250)
+                .background(.clear)
+                .padding(.bottom, 45)
+            }
             
             VStack {
                 HStack {
@@ -92,9 +113,9 @@ struct CardView: View {
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                     .padding(.bottom, 2)
-//                                Text(beautifulThing.year)
-//                                    .font(.callout)
-//                                    .foregroundStyle(.secondary)
+                                //                                Text(beautifulThing.year)
+                                //                                    .font(.callout)
+                                //                                    .foregroundStyle(.secondary)
                             }
                         }
                         .buttonStyle(.plain)
@@ -105,26 +126,13 @@ struct CardView: View {
                 
             }
             .padding(30)
-//            .background(.clear)
-//            .opacity(0.01)
-//            .glassBackgroundEffect()
+            //            .background(.clear)
+            //            .opacity(0.01)
+            //            .glassBackgroundEffect()
             .frame(width: 300, height: 300)
-            
-            /// Better Loading View?
-            //                        VStack {
-            //                            AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-            //                                image
-            //                                    .resizable()
-            //                                    .scaledToFit()
-            //                            } placeholder: {
-            //                                ProgressView()
-            //                            }
-            //                            .frame(width: 250, height: 130)
-            //                            .background(.thinMaterial)
-            //                            .padding(.bottom, 40)
-            //                        }
-            
 
+            
+            
         }
         .sheet(isPresented: $showSheet) {
             DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
@@ -137,40 +145,35 @@ struct CardView: View {
     private func downloadUSDZFile() {
         guard let remoteURL = URL(string: beautifulThing.filename) else { return }
         
-        let task = URLSession.shared.downloadTask(with: remoteURL) { tempLocalURL, response, error in
-            if let tempLocalURL = tempLocalURL, error == nil {
-                /// Move the file to a permanent location.
-                let fileManager = FileManager.default
-                let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
-                let fileName = remoteURL.lastPathComponent
-                let permanentLocalURL = documentsDirectory.appendingPathComponent(fileName)
-                
-                do {
-                    /// If the file already exists, remove it before moving the new file.
-                    if fileManager.fileExists(atPath: permanentLocalURL.path) {
-                        try fileManager.removeItem(at: permanentLocalURL)
+        let fileManager = FileManager.default
+        let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let fileName = remoteURL.lastPathComponent
+        let localURL = documentsDirectory.appendingPathComponent(fileName)
+        
+        if fileManager.fileExists(atPath: localURL.path) {
+            /// File already exists, use the cached version
+            /// Future consideration: if USDZ file is updated, it wont' fetch new file since the path is the same.
+            self.localFileURL = localURL
+        } else {
+            /// File does not exist, download and cache it
+            let task = URLSession.shared.downloadTask(with: remoteURL) { tempLocalURL, response, error in
+                if let tempLocalURL = tempLocalURL, error == nil {
+                    do {
+                        try fileManager.moveItem(at: tempLocalURL, to: localURL)
+                        DispatchQueue.main.async {
+                            self.localFileURL = localURL
+                        }
+                    } catch {
+                        print("Error moving file: \(error)")
                     }
-                    try fileManager.moveItem(at: tempLocalURL, to: permanentLocalURL)
-                    
-                    /// Debug: Print the size of the downloaded file.
-                    let fileSize = try fileManager.attributesOfItem(atPath: permanentLocalURL.path)[.size] as? NSNumber
-                    let fileSizeInMB = Double(truncating: fileSize ?? 0) / 1024.0 / 1024.0
-                    print("DEBUG: Downloaded \'\(fileName)\' (\(fileSizeInMB) MB)")
-                    
-                    DispatchQueue.main.async {
-                        self.localFileURL = permanentLocalURL
-                        
-                        /// Debug: Calculate and print the total directory size.
-                        let totalDirectorySize = self.calculateTotalDirectorySize()
-                        print("DEBUG: Total directory size: \(totalDirectorySize) MB")
-                    }
-                } catch {
-                    print("Error moving file: \(error)")
                 }
             }
+            task.resume()
         }
-        
-        task.resume()
+        DispatchQueue.main.async {
+            let totalDirectorySize = self.calculateTotalDirectorySize()
+            print("DEBUG: Total directory size: \(totalDirectorySize) MB")
+        }
     }
     
     private func calculateTotalDirectorySize() -> Double {
