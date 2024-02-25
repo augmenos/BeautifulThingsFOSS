@@ -17,12 +17,13 @@ struct Beautiful_ThingsApp: App {
                 LaunchView()
                     .environment(appModel)
                     .transition(.opacity)
-                
+                    .windowGeometryPreferences(resizingRestrictions: .none)
             } else {
                 MainView()
                     .environment(appModel)
                     .opacity(appModel.showLaunchScreen ? 0 : 1)
                     .transition(.opacity)
+                    .windowGeometryPreferences(resizingRestrictions: .none)
             }
         }
         .windowStyle(.plain)

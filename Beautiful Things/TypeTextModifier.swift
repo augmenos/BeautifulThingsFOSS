@@ -3,7 +3,7 @@
 //  Beautiful Things
 //
 //  Modified code created by Apple Inc. under open license.
-//
+//  https://developer.apple.com/documentation/visionos/world
 
 import SwiftUI
 

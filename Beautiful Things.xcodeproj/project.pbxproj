@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D40E7C322B8B91C200904D9C /* View+WindowGeometryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E7C312B8B91C200904D9C /* View+WindowGeometryPreferences.swift */; };
 		D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D5D2B853B48005D35D9 /* DataModel.swift */; };
 		D4267D612B853E7C005D35D9 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = D4267D602B853E7C005D35D9 /* SwiftSoup */; };
 		D4267D632B85404F005D35D9 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D622B85404F005D35D9 /* CardView.swift */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D40E7C312B8B91C200904D9C /* View+WindowGeometryPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+WindowGeometryPreferences.swift"; sourceTree = "<group>"; };
 		D4267D5D2B853B48005D35D9 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		D4267D622B85404F005D35D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		D4267D642B8542E9005D35D9 /* GridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridView.swift; sourceTree = "<group>"; };
@@ -142,6 +144,7 @@
 				D4267D932B85836B005D35D9 /* DataFetcher.swift */,
 				D48580D32B85365F00542BCB /* ImmersiveView.swift */,
 				D4B70AA32B88FF8F00419269 /* TypeTextModifier.swift */,
+				D40E7C312B8B91C200904D9C /* View+WindowGeometryPreferences.swift */,
 				D4267D8E2B8573AE005D35D9 /* Safari */,
 				D4267D872B85696B005D35D9 /* QuickLook */,
 				D48580D52B85365F00542BCB /* ImageBasedLighting.skybox */,
@@ -250,6 +253,7 @@
 				D4267D9B2B8697BA005D35D9 /* ARQLView.swift in Sources */,
 				D4B70AA22B88F9DE00419269 /* LaunchView.swift in Sources */,
 				D4ED12F42B891AD600325367 /* AboutView.swift in Sources */,
+				D40E7C322B8B91C200904D9C /* View+WindowGeometryPreferences.swift in Sources */,
 				D4B70AA02B87D7C000419269 /* SearchView.swift in Sources */,
 				D4B70A9E2B87D77C00419269 /* MainView.swift in Sources */,
 				D4267D942B85836B005D35D9 /* DataFetcher.swift in Sources */,

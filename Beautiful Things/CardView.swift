@@ -92,9 +92,9 @@ struct CardView: View {
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                     .padding(.bottom, 2)
-                                Text(beautifulThing.year)
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
+//                                Text(beautifulThing.year)
+//                                    .font(.callout)
+//                                    .foregroundStyle(.secondary)
                             }
                         }
                         .buttonStyle(.plain)

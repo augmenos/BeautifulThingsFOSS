@@ -22,13 +22,13 @@ struct MainView: View {
                     HStack {
                         SearchView()
                             .frame(width: 450)
-                        Spacer()
+//                        Spacer()
                     }
                 }
                 .frame(width: 450)
                 .background(.clear)
                 .backgroundStyle(.clear)
-                Spacer()
+//                Spacer()
             }
                 .tabItem {
                     Label("Search", systemImage: "magnifyingglass")

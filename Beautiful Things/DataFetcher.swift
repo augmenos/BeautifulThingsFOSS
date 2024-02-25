@@ -25,8 +25,8 @@ class BeautifulThingFetcher {
                 let html = String(decoding: data, as: UTF8.self)
                 let document = try SwiftSoup.parse(html)
                 
-                 let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj"
-//                let itemsSelector = "div.framer-1gmgbs9"
+//                 let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj" /// Production
+                let itemsSelector = "div.framer-1gmgbs9" /// Development
                 
                 let items = try document.select(itemsSelector)
                 var beautifulThings: [BeautifulThing] = []

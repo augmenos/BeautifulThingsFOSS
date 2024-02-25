@@ -28,7 +28,7 @@ struct AboutView: View {
                     .fontWeight(.regular)
                 
                 Link("Matthew Hoerl", destination: URL(string: "https://www.matthewhoerl.com")!)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.gray)
             }
             
             HStack(spacing: 0) {
@@ -36,7 +36,7 @@ struct AboutView: View {
                     .fontWeight(.regular)
                 
                 Link("Augmenos", destination: URL(string: "https://www.augmenos.com")!)
-                    .foregroundColor(.blue)
+                    .foregroundColor(.gray)
             }
 
             Button {

@@ -22,7 +22,7 @@ struct ContentView: View {
                     .transition(.opacity)
             } else {
                 VStack {
-                    Spacer(minLength: 100)
+                    Spacer(minLength: 80)
                     GridView(selectedCategory: selectedCategory)
                         .padding(.top, 30)
                 }
@@ -30,10 +30,10 @@ struct ContentView: View {
                 VStack {
                     HStack {
                         Text("𖡼")
-                            .font(.system(size: 120))
-                            .padding(.trailing, 10)
+                            .font(.system(size: 100))
+                            .padding(.trailing, 8)
                         Text("Beautiful Things")
-                            .font(.extraLargeTitle)
+                            .font(.largeTitle)
                             .fontWeight(.medium)
                     }
                     
