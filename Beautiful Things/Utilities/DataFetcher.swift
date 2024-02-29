@@ -36,10 +36,11 @@ class BeautifulThingFetcher {
                     
                     let title = try item.select("div.framer-u2tus0 > p").text()
                     let subtitle = try item.select("div.framer-1l605sw > p").text()
-                    let year = try item.select("div.framer-b015mz > p").text()
+                    let year = try item.select("framer-119rov3 > p").text()
                     let category = try item.select("div.framer-wlop1v > p").text()
                     let link = try item.select("div.framer-1kzr64t > div > div > a").attr("href")
                     let imageURL = try item.select("div.framer-1kzr64t > div > div > a > img").attr("src")
+                    let featured = try item.select("div.framer-b015mz > p").text()
                     
                     let beautifulThing = BeautifulThing(
                         title: title,
@@ -52,7 +53,8 @@ class BeautifulThingFetcher {
                         descriptionText: "",
                         modelName: "",
                         modelAuthor: "",
-                        license: ""
+                        license: "",
+                        featured: featured
                     )
                     beautifulThings.append(beautifulThing)
                 }

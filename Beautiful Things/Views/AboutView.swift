@@ -49,7 +49,7 @@ struct AboutView: View {
             }
             .padding(.vertical, 25)
             
-            Text("This app is independently developed using artistic representations\nunder fair use for educational and entertainment purposes only.\nWe hope this app brings you joy.")
+            Text("This app is independently developed using artistic representations\nfor educational and entertainment purposes only.\nWe hope this app brings you joy.")
                 .fontWeight(.regular)
                 .multilineTextAlignment(.center)
         }

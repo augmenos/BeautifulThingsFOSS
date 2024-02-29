@@ -1,60 +1,84 @@
 //
-//  LaunchView.swift
+//  ContentView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/23/24.
+//  Created by Miguel Garcia Gonzalez on 2/20/24.
 //
-
 import SwiftUI
 
 struct LaunchView: View {
     @Environment(AppModel.self) private var appModel
-    @State private var showInitialText = true
-    @State private var showFinalText = false
-    @State private var fadeOutFinalText = false
-
+    enum AnimationState {
+        case initial, showFinalText, fadeOutFinalText, completed
+    }
+    
+    @State private var animationState = AnimationState.initial
+    @State private var displayedText = "" // New state variable for the animated text
+    
+    let fullText = "Hello Beautiful" // The full text to display
+    let typingAnimationDelay = 0.15 // Delay between each character
+    
     var body: some View {
-        VStack {
+        ZStack {
+            // Background Spacer for ZStack to occupy full screen
             Spacer()
-
-            if showInitialText {
+            
+            // Initial text conditionally shown
+            if animationState == .initial {
                 Text("𖡼")
                     .font(.system(size: 200))
+                    .opacity(animationState == .initial ? 1 : 0)
+                    .animation(.easeInOut(duration: 2), value: animationState)
                     .transition(.opacity)
             }
-
-            if showFinalText {
-                            Text("Hello Beautiful")
-                                .font(.extraLargeTitle)
-                                .opacity(fadeOutFinalText ? 0 : 1)
-                                .transition(.opacity)
+            
+            // Final text conditionally shown
+            if animationState == .showFinalText || animationState == .fadeOutFinalText {
+                Text(displayedText)
+                    .font(.extraLargeTitle)
+                    .opacity(animationState == .showFinalText || animationState == .fadeOutFinalText ? 1 : 0)
+                    .animation(.easeInOut(duration: 2).delay(3), value: animationState) // Adjust as necessary
+                    .transition(.opacity)
+                    .onAppear {
+                        if animationState == .showFinalText {
+                            for (index, character) in fullText.enumerated() {
+                                DispatchQueue.main.asyncAfter(deadline: .now() + typingAnimationDelay * Double(index)) {
+                                    displayedText.append(character)
+                                }
+                            }
                         }
-
-            Spacer()
+                    }
+            }
         }
         .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                        withAnimation(.easeInOut(duration: 2.0)) {
-                            showInitialText = false
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
-                        withAnimation(.easeInOut(duration: 2.0)) {
-                            showFinalText = true
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
-                        withAnimation(.easeInOut(duration: 2.0)) {
-                            fadeOutFinalText = true
-                        }
-                    }
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                        withAnimation(.easeInOut(duration: 2.0)) {
-                            appModel.showLaunchScreen = false
-                        }
-                    }
-
-                    appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    animationState = .initial
                 }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    animationState = .showFinalText
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                withAnimation {
+                    animationState = .fadeOutFinalText
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                withAnimation {
+                    animationState = .completed
+                    appModel.showLaunchScreen = false
+                }
+            }
+            
+            appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
+        }
     }
 }
+
+

@@ -9,17 +9,17 @@ import SwiftUI
 
 struct MenuView: View {
     @Environment(AppModel.self) private var appModel
-    @State private var selectedCategory: String? = "New"
+    @State private var selectedCategory: String? = "Featured"
     @State private var isLargeGridView: Bool = true /// Working but unable to autoresize main window.
     
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedCategory) {
                 Section(header: Text("For You")) {
-//                    NavigationLink("Featured", value: "New") /// Note to self: fetch data from URL already sorted by new?
+                    NavigationLink("Featured", value: "Featured") /// Note to self: fetch data from URL already sorted by new?
                     NavigationLink("New", value: "New")
-//                    NavigationLink("Random", value: "All") /// Randomizes
-                    NavigationLink("All", value: "All") /// Alphabetical
+ //                   NavigationLink("Random", value: "All") /// Randomizes
+  //                  NavigationLink("All", value: "All") /// Alphabetical
                 }
                 
                 Section(header: Text("Categories")) {

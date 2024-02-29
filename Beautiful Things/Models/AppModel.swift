@@ -53,11 +53,8 @@ class AppModel {
             return beautifulThings
         case "all":
             return beautifulThings.sorted(by: { $0.title < $1.title })
-        case "other":
-            return beautifulThings.filter { item in
-                let category = item.category.lowercased()
-                return category != "culture" && category != "tech" && category != "nature"
-            }
+        case "featured":
+            return beautifulThings.filter { $0.featured == "Featured" }
         case "loved":
             return userFavorites.filter { $0.isFavorited }
         default:

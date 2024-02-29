@@ -14,6 +14,7 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
     var subtitle: String
     var filename: String
     var category: String
+    var featured: String
     var year: String
     var imageURL: String
     
@@ -23,7 +24,7 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
     var modelAuthor: String
     var license: String
     
-    init(title: String, subtitle: String, filename: String, category: String, year: String, imageURL: String, descriptionText: String, modelName: String, modelAuthor: String, license: String) {
+    init(title: String, subtitle: String, filename: String, category: String, year: String, imageURL: String, descriptionText: String, modelName: String, modelAuthor: String, license: String, featured: String) {
         self.title = title
         self.subtitle = subtitle
         self.filename = filename
@@ -35,6 +36,7 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
         self.modelName = modelName
         self.modelAuthor = modelAuthor
         self.license = license
+        self.featured = featured
     }
     
     static func == (lhs: BeautifulThing, rhs: BeautifulThing) -> Bool {
