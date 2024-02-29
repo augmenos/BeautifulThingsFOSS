@@ -83,6 +83,7 @@ struct CardView: View {
                         appModel.toggleFavorite(beautifulThing)
                     } label: {
                         Image(systemName: beautifulThing.isFavorited ? "heart.fill" : "heart")
+                            .padding(10)
                             .font(.system(size: 25))
                             .foregroundStyle(.primary)
                     }
@@ -110,6 +111,7 @@ struct CardView: View {
                         } label: {
                             VStack(alignment: .trailing) {
                                 Image(systemName: "arrow.up.right")
+                                    .padding(10)
                                     .font(.callout)
                                     .foregroundStyle(.secondary)
                                     .padding(.bottom, 2)

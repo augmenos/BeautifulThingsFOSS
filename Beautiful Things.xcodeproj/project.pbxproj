@@ -22,6 +22,8 @@
 		D4267D9B2B8697BA005D35D9 /* ARQLView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D9A2B8697BA005D35D9 /* ARQLView.swift */; };
 		D4267D9D2B86BC43005D35D9 /* TestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D9C2B86BC43005D35D9 /* TestView.swift */; };
 		D4267DA12B86C10D005D35D9 /* robot_walk_idle.usdz in Resources */ = {isa = PBXBuildFile; fileRef = D4267DA02B86C0F5005D35D9 /* robot_walk_idle.usdz */; };
+		D449A5F02B8FEE83006074B8 /* MenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D449A5EF2B8FEE82006074B8 /* MenuView.swift */; };
+		D449A5F22B8FF77D006074B8 /* GridLargeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D449A5F12B8FF77D006074B8 /* GridLargeView.swift */; };
 		D48580CE2B85365F00542BCB /* RealityKitContent in Frameworks */ = {isa = PBXBuildFile; productRef = D48580CD2B85365F00542BCB /* RealityKitContent */; };
 		D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */; };
 		D48580D22B85365F00542BCB /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D48580D12B85365F00542BCB /* ContentView.swift */; };
@@ -51,6 +53,8 @@
 		D4267D9A2B8697BA005D35D9 /* ARQLView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARQLView.swift; sourceTree = "<group>"; };
 		D4267D9C2B86BC43005D35D9 /* TestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestView.swift; sourceTree = "<group>"; };
 		D4267DA02B86C0F5005D35D9 /* robot_walk_idle.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; path = robot_walk_idle.usdz; sourceTree = "<group>"; };
+		D449A5EF2B8FEE82006074B8 /* MenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuView.swift; sourceTree = "<group>"; };
+		D449A5F12B8FF77D006074B8 /* GridLargeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GridLargeView.swift; sourceTree = "<group>"; };
 		D48580C82B85365F00542BCB /* Beautiful Things.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Beautiful Things.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D48580CC2B85365F00542BCB /* RealityKitContent */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = RealityKitContent; sourceTree = "<group>"; };
 		D48580CF2B85365F00542BCB /* Beautiful_ThingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beautiful_ThingsApp.swift; sourceTree = "<group>"; };
@@ -84,10 +88,12 @@
 			isa = PBXGroup;
 			children = (
 				D4B70A9D2B87D77C00419269 /* MainView.swift */,
+				D449A5EF2B8FEE82006074B8 /* MenuView.swift */,
 				D4B70AA12B88F9DE00419269 /* LaunchView.swift */,
 				D48580D12B85365F00542BCB /* ContentView.swift */,
 				D48580E22B85388500542BCB /* NavigationView.swift */,
 				D4267D642B8542E9005D35D9 /* GridView.swift */,
+				D449A5F12B8FF77D006074B8 /* GridLargeView.swift */,
 				D4267D622B85404F005D35D9 /* CardView.swift */,
 				D4ED12F52B89362000325367 /* DescriptionView.swift */,
 				D4B70A9F2B87D7C000419269 /* SearchView.swift */,
@@ -264,6 +270,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D449A5F02B8FEE83006074B8 /* MenuView.swift in Sources */,
 				D4267D9B2B8697BA005D35D9 /* ARQLView.swift in Sources */,
 				D4B70AA22B88F9DE00419269 /* LaunchView.swift in Sources */,
 				D4ED12F42B891AD600325367 /* AboutView.swift in Sources */,
@@ -273,6 +280,7 @@
 				D4267D942B85836B005D35D9 /* DataFetcher.swift in Sources */,
 				D4ED12F62B89362000325367 /* DescriptionView.swift in Sources */,
 				D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */,
+				D449A5F22B8FF77D006074B8 /* GridLargeView.swift in Sources */,
 				D4267D902B8573BE005D35D9 /* SafariView.swift in Sources */,
 				D48580D22B85365F00542BCB /* ContentView.swift in Sources */,
 				D48580D02B85365F00542BCB /* Beautiful_ThingsApp.swift in Sources */,

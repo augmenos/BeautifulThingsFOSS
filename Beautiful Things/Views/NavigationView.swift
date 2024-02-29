@@ -14,7 +14,6 @@ struct NavigationView: View {
     var body: some View {
         HStack {
             CategoryButton(category: "All", selectedCategory: $selectedCategory)
-//            CategoryButton(category: "New", selectedCategory: $selectedCategory)
             CategoryButton(category: "Culture", selectedCategory: $selectedCategory)
             CategoryButton(category: "Tech", selectedCategory: $selectedCategory)
             CategoryButton(category: "Nature", selectedCategory: $selectedCategory)

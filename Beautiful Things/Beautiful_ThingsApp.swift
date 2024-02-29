@@ -27,6 +27,6 @@ struct Beautiful_ThingsApp: App {
             }
         }
         .windowStyle(.plain)
-        .defaultSize(width: 600, height: 950)
+        .defaultSize(width: 1300, height: 950)
     }
 }

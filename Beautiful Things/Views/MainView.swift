@@ -10,13 +10,20 @@ import SwiftUI
 struct MainView: View {
     var body: some View {
         TabView {
-            ContentView()
-//                .frame(width: 1075, height: 950)
+            MenuView()
                 .glassBackgroundEffect()
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
 
+            GridLargeView(selectedCategory: "Loved")
+                .padding(.vertical, 30)
+                .frame(width: 1000)
+                .glassBackgroundEffect()
+                .tabItem {
+                    Label("Loved", systemImage: "heart.fill")
+                }
+            
             HStack {
                 NavigationStack {
                     HStack {
