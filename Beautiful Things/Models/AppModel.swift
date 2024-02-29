@@ -54,7 +54,7 @@ class AppModel {
         case "all":
             return beautifulThings.sorted(by: { $0.title < $1.title })
         case "featured":
-            return beautifulThings.filter { $0.featured == "Featured" }
+            return beautifulThings.filter { $0.featured == "Featured" }.reversed()
         case "loved":
             return userFavorites.filter { $0.isFavorited }
         default:
