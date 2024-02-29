@@ -45,7 +45,7 @@ struct MainView: View {
                 .frame(width: 600)
                 .glassBackgroundEffect()
                 .tabItem {
-                    Label("About", systemImage: "ellipsis.circle")
+                    Label("About", systemImage: "info.circle")
                 }
         }
     }

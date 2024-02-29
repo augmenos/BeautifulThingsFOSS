@@ -15,16 +15,13 @@ struct MenuView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedCategory) {
-                Section(header: Text("Top")) {
-                    NavigationLink("New", value: "All") /// Note to self: fetch data from URL already sorted by new?
-                    NavigationLink("Culture", value: "Culture")
-                    NavigationLink("Tech", value: "Tech")
-                    NavigationLink("Nature", value: "Nature")
+                Section(header: Text("For You")) {
+                    NavigationLink("Featured", value: "All") /// Note to self: fetch data from URL already sorted by new?
+                    NavigationLink("New", value: "All")
+                    NavigationLink("All", value: "All")
                 }
                 
-                Divider()
-                
-                Section(header: Text("All")) {
+                Section(header: Text("Categories")) {
                     /// Reminder to self: this may not work for categories with multiple words, i.e. "Pop Culture".
                     ForEach(uniqueCategories.sorted(), id: \.self) { category in
                         NavigationLink(category, value: category)
@@ -32,7 +29,7 @@ struct MenuView: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            .navigationTitle("Categories")
+            .navigationTitle("Things")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
