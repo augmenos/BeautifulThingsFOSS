@@ -15,23 +15,26 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
     var filename: String
     var category: String
     var year: String
-    var description: NSAttributedString
-    var attribution: String
-    var license: String
     var imageURL: String
     
     @Published var isFavorited: Bool = false
+    var descriptionText: String
+    var modelName: String
+    var modelAuthor: String
+    var license: String
     
-    init(title: String, subtitle: String, filename: String, category: String, year: String, description: NSAttributedString, attribution: String, license: String, imageURL: String) {
+    init(title: String, subtitle: String, filename: String, category: String, year: String, imageURL: String, descriptionText: String, modelName: String, modelAuthor: String, license: String) {
         self.title = title
         self.subtitle = subtitle
         self.filename = filename
         self.category = category
         self.year = year
-        self.description = description
-        self.attribution = attribution
-        self.license = license
         self.imageURL = imageURL
+        
+        self.descriptionText = descriptionText
+        self.modelName = modelName
+        self.modelAuthor = modelAuthor
+        self.license = license
     }
     
     static func == (lhs: BeautifulThing, rhs: BeautifulThing) -> Bool {

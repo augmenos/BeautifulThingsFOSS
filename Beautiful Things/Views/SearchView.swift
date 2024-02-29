@@ -13,12 +13,17 @@ struct SearchView: View {
     
     var filteredItems: [BeautifulThing] {
         let items = appModel.beautifulThings
-            .filter { searchText.isEmpty || $0.title.localizedCaseInsensitiveContains(searchText) || $0.subtitle.localizedCaseInsensitiveContains(searchText) }
+            .filter {
+                searchText.isEmpty ||
+                $0.title.localizedCaseInsensitiveContains(searchText) ||
+                $0.subtitle.localizedCaseInsensitiveContains(searchText) ||
+                $0.descriptionText.localizedCaseInsensitiveContains(searchText)
+            }
             .sorted { $0.title < $1.title }
         print("Total items: \(appModel.beautifulThings.count), Filtered items: \(items.count)")
         return items
     }
-
+    
     var body: some View {
         VStack {
             TextField("Search", text: $searchText)
@@ -39,7 +44,7 @@ struct SearchView: View {
                         }
                     }
                 )
-
+            
             List {
                 ForEach(filteredItems) { item in
                     NavigationLink(destination: CardView(beautifulThing: item)) {

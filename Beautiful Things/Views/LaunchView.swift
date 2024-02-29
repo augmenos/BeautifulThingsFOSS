@@ -9,55 +9,52 @@ import SwiftUI
 
 struct LaunchView: View {
     @Environment(AppModel.self) private var appModel
-    
+    @State private var showInitialText = true
+    @State private var showFinalText = false
+    @State private var fadeOutFinalText = false
+
     var body: some View {
-        @Bindable var appModel = appModel
-        
         VStack {
             Spacer()
-            
-            Text("𖡼")
-                .font(.system(size: 200))
-//                .padding(.bottom, 10)
-            
-            TitleText(title: appModel.finalTitle)
-//                .padding(.horizontal, 70)
-                .hidden()
-                .overlay(alignment: .leading) {
-                    TitleText(title: appModel.titleText)
-//                        .padding(.leading, 70)
-                }
-            
-            Spacer()
-//
-//            Text("Hello Beautiful")
-//                .font(.extraLargeTitle)
-//                .fontWeight(.light)
-        }
-        .typeText(
-            text: $appModel.titleText,
-            finalText: appModel.finalTitle,
-            isFinished: $appModel.isTitleFinished,
-            isAnimated: !appModel.isTitleFinished)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                withAnimation(.easeInOut(duration: 2.0)) {
-                    appModel.showLaunchScreen = false
-                }
-            }
-        }
-        .onAppear {
-            appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories") // Production URL: https://beautifulthings.xyz/category/random-access-memories
-            // Must also change div.framer in DataFetcher.
-        }
-    }
-}
 
-/// The text that displays the app's title.
-private struct TitleText: View {
-    var title: String
-    var body: some View {
-        Text(title)
-            .font(.extraLargeTitle)
+            if showInitialText {
+                Text("𖡼")
+                    .font(.system(size: 200))
+                    .transition(.opacity)
+            }
+
+            if showFinalText {
+                            Text("Hello Beautiful")
+                                .font(.extraLargeTitle)
+                                .opacity(fadeOutFinalText ? 0 : 1)
+                                .transition(.opacity)
+                        }
+
+            Spacer()
+        }
+        .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                        withAnimation(.easeInOut(duration: 2.0)) {
+                            showInitialText = false
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+                        withAnimation(.easeInOut(duration: 2.0)) {
+                            showFinalText = true
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 6) {
+                        withAnimation(.easeInOut(duration: 2.0)) {
+                            fadeOutFinalText = true
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                        withAnimation(.easeInOut(duration: 2.0)) {
+                            appModel.showLaunchScreen = false
+                        }
+                    }
+
+                    appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
+                }
     }
 }

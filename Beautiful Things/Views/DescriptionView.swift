@@ -11,10 +11,6 @@ import SwiftSoup
 struct DescriptionView: View {
     @Binding var showSheet: Bool
     var beautifulThing: BeautifulThing
-    @State private var descriptionText: String = ""
-    @State private var modelName: String = ""
-    @State private var modelAuthor: String = ""
-    @State private var license: String = ""
     
     var body: some View {
         ZStack {
@@ -27,18 +23,18 @@ struct DescriptionView: View {
                 }
                 
                 ScrollView {
-                    Text(descriptionText)
+                    Text(beautifulThing.descriptionText)
                         .multilineTextAlignment(.center)
                         .font(.subheadline)
                         .foregroundColor(.primary)
                         .padding(.top, 20)
                         .padding(.bottom, 20)
                     
-                    Text("Model based on \(beautifulThing.subtitle + " " + beautifulThing.title) by \(modelAuthor)")
+                    Text("Model based on \(beautifulThing.subtitle + " " + beautifulThing.title) by \(beautifulThing.modelAuthor)")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                     
-                    Text("Licensed under \(license)")
+                    Text("Licensed under \(beautifulThing.license)")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                 }
@@ -70,44 +66,15 @@ struct DescriptionView: View {
         }
         .frame(width: 500, height: 300)
         .padding(30)
-        .onAppear {
-            fetchBeautifulThingInfo(beautifulThing: beautifulThing) { description, modelName, modelAuthor, license in
-                self.descriptionText = description
-                self.modelName = modelName
-                self.modelAuthor = modelAuthor
-                self.license = license
-            }
-        }
+//        .onAppear {
+//            fetchBeautifulThingInfo(beautifulThing: beautifulThing) { description, modelName, modelAuthor, license in
+//                self.descriptionText = description
+//                self.modelName = modelName
+//                self.modelAuthor = modelAuthor
+//                self.license = license
+//            }
+//        }
     }
 }
 
-func fetchBeautifulThingInfo(beautifulThing: BeautifulThing, completion: @escaping (String, String, String, String) -> Void) {
-    let filename = beautifulThing.filename
-    let modelName = filename.components(separatedBy: "/models/").last?.components(separatedBy: ".usdz").first?.lowercased() ?? ""
-    let url = URL(string: "https://beautifulthings.xyz/things/\(modelName)")!
-    
-    let task = URLSession.shared.dataTask(with: url) { data, response, error in
-        guard let data = data, error == nil else {
-            print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
-            return
-        }
-        
-        do {
-            let html = String(decoding: data, as: UTF8.self)
-            let document = try SwiftSoup.parse(html)
-            
-            let description = try document.select("div.framer-1368l0r").text()
-            let modelName = try document.select("div.framer-1mn1rta").text()
-            let modelAuthor = try document.select("div.framer-ebdazr").text()
-            let license = try document.select("div.framer-1eogcsr").text()
-            
-            DispatchQueue.main.async {
-                completion(description, modelName, modelAuthor, license)
-            }
-        } catch {
-            print("Error parsing HTML: \(error.localizedDescription)")
-        }
-    }
-    
-    task.resume()
-}
+

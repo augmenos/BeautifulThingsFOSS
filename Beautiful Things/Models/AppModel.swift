@@ -46,33 +46,13 @@ class AppModel {
             }
         }
     }
-     /// Favorites / Loved?
-//    func fetchAllItems(url: String) {
-//        print("DEBUG: Fetching data from \(url)")
-//        BeautifulThingFetcher.fetchBeautifulThings(url: url) { fetchedItems in
-//            DispatchQueue.main.async {
-//                /// Create a set of filenames from the currently stored beautifulThings
-//                let existingFilenames = Set(self.beautifulThings.map { $0.filename })
-//                
-//                /// Filter out items that are already in the array
-//                let newItems = fetchedItems.filter { !existingFilenames.contains($0.filename) }
-//                
-//                /// Append new items to the beautifulThings array
-//                self.beautifulThings.append(contentsOf: newItems)
-//                
-//                /// Remove items that are no longer present in the fetched data
-//                self.beautifulThings = self.beautifulThings.filter { item in
-//                    fetchedItems.contains(where: { $0.filename == item.filename })
-//                }
-//                self.loadFavorites()
-//            }
-//        }
-//    }
     
     func filterItems(forCategory category: String) -> [BeautifulThing] {
         switch category.lowercased() {
-        case "all":
+        case "new":
             return beautifulThings
+        case "all":
+            return beautifulThings.sorted(by: { $0.title < $1.title })
         case "other":
             return beautifulThings.filter { item in
                 let category = item.category.lowercased()
@@ -84,23 +64,7 @@ class AppModel {
             return beautifulThings.filter { $0.category.lowercased() == category.lowercased() }
         }
     }
-    
-//    func filterItems(forCategory category: String) -> [BeautifulThing] {
-//        switch category.lowercased() {
-//        case "all":
-//            return beautifulThings
-//        case "other":
-//            return beautifulThings.filter { item in
-//                let category = item.category.lowercased()
-//                return category != "culture" && category != "tech" && category != "nature"
-//            }
-//        case "loved":
-//            return userFavorites
-//        default:
-//            return beautifulThings.filter { $0.category.lowercased() == category.lowercased() }
-//        }
-//    }
-    
+
     func toggleFavorite(_ beautifulThing: BeautifulThing) {
         if let index = beautifulThings.firstIndex(where: { $0.filename == beautifulThing.filename }) {
             beautifulThings[index].isFavorited.toggle()

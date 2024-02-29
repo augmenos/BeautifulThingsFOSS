@@ -9,16 +9,17 @@ import SwiftUI
 
 struct MenuView: View {
     @Environment(AppModel.self) private var appModel
-    @State private var selectedCategory: String? = "All"
+    @State private var selectedCategory: String? = "New"
     @State private var isLargeGridView: Bool = true /// Working but unable to autoresize main window.
     
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedCategory) {
                 Section(header: Text("For You")) {
-                    NavigationLink("Featured", value: "All") /// Note to self: fetch data from URL already sorted by new?
-                    NavigationLink("New", value: "All")
-                    NavigationLink("All", value: "All")
+//                    NavigationLink("Featured", value: "New") /// Note to self: fetch data from URL already sorted by new?
+                    NavigationLink("New", value: "New")
+//                    NavigationLink("Random", value: "All") /// Randomizes
+                    NavigationLink("All", value: "All") /// Alphabetical
                 }
                 
                 Section(header: Text("Categories")) {
@@ -30,15 +31,15 @@ struct MenuView: View {
             }
             .listStyle(SidebarListStyle())
             .navigationTitle("Things")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(action: {
-                        isLargeGridView.toggle()
-                    }) {
-                        Image(systemName: isLargeGridView ? "square.grid.2x2.fill" : "square.grid.2x2")
-                    }
-                }
-            }
+//            .toolbar {
+//                ToolbarItem(placement: .navigationBarTrailing) {
+//                    Button(action: {
+//                        isLargeGridView.toggle()
+//                    }) {
+//                        Image(systemName: isLargeGridView ? "square.grid.2x2.fill" : "square.grid.2x2")
+//                    }
+//                }
+//            }
         } detail: {
             VStack {
                 HStack {

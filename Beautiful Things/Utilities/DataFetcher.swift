@@ -25,14 +25,14 @@ class BeautifulThingFetcher {
                 let html = String(decoding: data, as: UTF8.self)
                 let document = try SwiftSoup.parse(html)
                 
-//                 let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj" /// Production
+                //                 let itemsSelector = "div.framer-1vq31ht-container > div.framer-yJoAj" /// Production
                 let itemsSelector = "div.framer-mnas8g" /// Development
                 
                 let items = try document.select(itemsSelector)
                 var beautifulThings: [BeautifulThing] = []
                 
                 for item in items {
-//                    print(try item.outerHtml())
+                    //                    print(try item.outerHtml())
                     
                     let title = try item.select("div.framer-u2tus0 > p").text()
                     let subtitle = try item.select("div.framer-1l605sw > p").text()
@@ -47,12 +47,31 @@ class BeautifulThingFetcher {
                         filename: link,
                         category: category,
                         year: year,
-                        description: NSAttributedString(string: ""),
-                        attribution: "",
-                        license: "",
-                        imageURL: imageURL
+                        imageURL: imageURL,
+                        
+                        descriptionText: "",
+                        modelName: "",
+                        modelAuthor: "",
+                        license: ""
                     )
                     beautifulThings.append(beautifulThing)
+                }
+                
+                let group = DispatchGroup()
+                
+                for beautifulThing in beautifulThings {
+                    group.enter()
+                    fetchBeautifulThingInfo(beautifulThing: beautifulThing) { description, modelName, modelAuthor, license in
+                        beautifulThing.descriptionText = description
+                        beautifulThing.modelName = modelName
+                        beautifulThing.modelAuthor = modelAuthor
+                        beautifulThing.license = license
+                        group.leave()
+                    }
+                }
+                
+                group.notify(queue: .main) {
+                    completion(beautifulThings)
                 }
                 
                 /// Helpful Debug Stats
@@ -65,13 +84,42 @@ class BeautifulThingFetcher {
                     print("DEBUG: Fetched \(beautifulThing.title) [\(index)]")
                 }
                 
+                
+            } catch {
+                print("Error parsing HTML: \(error.localizedDescription)")
+            }
+        }
+        task.resume()
+    }
+    
+    static func fetchBeautifulThingInfo(beautifulThing: BeautifulThing, completion: @escaping (String, String, String, String) -> Void) {
+        let filename = beautifulThing.filename
+        let modelName = filename.components(separatedBy: "/models/").last?.components(separatedBy: ".usdz").first?.lowercased() ?? ""
+        let url = URL(string: "https://beautifulthings.xyz/things/\(modelName)")!
+        
+        let task = URLSession.shared.dataTask(with: url) { data, response, error in
+            guard let data = data, error == nil else {
+                print("Error fetching data: \(error?.localizedDescription ?? "Unknown error")")
+                return
+            }
+            
+            do {
+                let html = String(decoding: data, as: UTF8.self)
+                let document = try SwiftSoup.parse(html)
+                
+                let description = try document.select("div.framer-1368l0r").text()
+                let modelName = try document.select("div.framer-1mn1rta").text()
+                let modelAuthor = try document.select("div.framer-ebdazr").text()
+                let license = try document.select("div.framer-1eogcsr").text()
+                
                 DispatchQueue.main.async {
-                    completion(beautifulThings)
+                    completion(description, modelName, modelAuthor, license)
                 }
             } catch {
                 print("Error parsing HTML: \(error.localizedDescription)")
             }
         }
+        
         task.resume()
     }
 }
