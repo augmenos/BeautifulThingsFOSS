@@ -17,6 +17,7 @@ struct MenuView: View {
             List(selection: $selectedCategory) {
                 Section(header: Text("For You")) {
                     NavigationLink("Featured", value: "Featured") /// Note to self: fetch data from URL already sorted by new?
+                    NavigationLink("Animated", value: "Animated")
                     NavigationLink("New", value: "New")
  //                   NavigationLink("Random", value: "All") /// Randomizes
   //                  NavigationLink("All", value: "All") /// Alphabetical

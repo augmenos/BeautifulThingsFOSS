@@ -41,6 +41,7 @@ class BeautifulThingFetcher {
                     let link = try item.select("div.framer-1kzr64t > div > div > a").attr("href")
                     let imageURL = try item.select("div.framer-1kzr64t > div > div > a > img").attr("src")
                     let featured = try item.select("div.framer-b015mz > p").text()
+                    let animated = try item.select("div.framer-1wnyfmn > p").text()
                     
                     let beautifulThing = BeautifulThing(
                         title: title,
@@ -54,7 +55,8 @@ class BeautifulThingFetcher {
                         modelName: "",
                         modelAuthor: "",
                         license: "",
-                        featured: featured
+                        featured: featured,
+                        animated: animated
                     )
                     beautifulThings.append(beautifulThing)
                 }
