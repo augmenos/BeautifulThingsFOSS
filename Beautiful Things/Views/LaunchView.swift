@@ -8,6 +8,7 @@ import SwiftUI
 
 struct LaunchView: View {
     @Environment(AppModel.self) private var appModel
+    @Binding var showMainView: Bool
     enum AnimationState {
         case initial, showFinalText, fadeOutFinalText, completed
     }
@@ -19,6 +20,7 @@ struct LaunchView: View {
     let typingAnimationDelay = 0.15 // Delay between each character
     
     var body: some View {
+        
         ZStack {
             // Background Spacer for ZStack to occupy full screen
             Spacer()
@@ -70,9 +72,10 @@ struct LaunchView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                withAnimation {
+                withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
                     animationState = .completed
                     appModel.showLaunchScreen = false
+                    showMainView = true // This line triggers the transition to MainView
                 }
             }
             

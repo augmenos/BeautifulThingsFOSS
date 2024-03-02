@@ -10,18 +10,21 @@ import SwiftUI
 @main
 struct Beautiful_ThingsApp: App {
     @State private var appModel = AppModel()
+    @State private var showMainView = false
 
     var body: some Scene {
         WindowGroup {
-            Group {
-                if appModel.showLaunchScreen {
-                    LaunchView()
-                } else {
-                    MainView()
-                }
+            if !showMainView {
+                LaunchView(showMainView: $showMainView)
+                    .transition(.opacity)
             }
-            .environment(appModel) // Provide the appModel to all views within the group
+
+            if showMainView {
+                MainView()
+                    .transition(.opacity)
+            }
         }
+        .environment(appModel) // Provide the appModel to all views within the group
         .windowStyle(.plain)
         .defaultSize(width: 1300, height: 950)
     }

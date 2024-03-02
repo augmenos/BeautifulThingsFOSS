@@ -15,7 +15,6 @@ struct MainView: View {
                 .tabItem {
                     Label("Home", systemImage: "house")
                 }
-
             GridLargeView(selectedCategory: "Loved")
                 .padding(.vertical, 30)
                 .frame(width: 1000)
@@ -48,5 +47,6 @@ struct MainView: View {
                     Label("About", systemImage: "info.circle")
                 }
         }
+        
     }
 }

@@ -31,7 +31,8 @@ struct MenuView: View {
                 }
             }
             .listStyle(SidebarListStyle())
-            .navigationTitle("Things")
+            .navigationTitle("Beautiful Things")
+
 //            .toolbar {
 //                ToolbarItem(placement: .navigationBarTrailing) {
 //                    Button(action: {
@@ -44,10 +45,10 @@ struct MenuView: View {
         } detail: {
             VStack {
                 HStack {
-                    Text("𖡼")
+                    Text(" ")
                         .font(.system(size: 100))
                         .padding(.trailing, 8)
-                    Text("Beautiful Things")
+                    Text("Pinch and drag to add Things to your world.")
                         .font(.largeTitle)
                         .fontWeight(.medium)
                 }

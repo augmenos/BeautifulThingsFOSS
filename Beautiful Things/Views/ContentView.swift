@@ -22,14 +22,11 @@ struct ContentView: View {
                 }
                 
                 VStack {
-                    HStack {
-                        Text("𖡼")
-                            .font(.system(size: 100))
-                            .padding(.trailing, 8)
-                        Text("Beautiful Things")
+
+                        Text("Pinch and Drag")
                             .font(.largeTitle)
                             .fontWeight(.medium)
-                    }
+                    
                     Spacer()
                 }
 
