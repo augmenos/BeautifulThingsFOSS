@@ -1,75 +1,71 @@
 //
-//  GridView.swift
+//  CardView.swift
 //  Beautiful Things
 //
 //  Created by Miguel Garcia Gonzalez on 2/20/24.
 //
-
 import SwiftUI
 import RealityKit
+struct ManipulationState {
+  var transform: AffineTransform3D = .identity
+  var active: Bool = false
+}
 
 struct CardView: View {
+    @GestureState var manipulationState = ManipulationState()
     @Environment(AppModel.self) private var appModel
     @ObservedObject var beautifulThing: BeautifulThing
     @State private var localFileURL: URL?
     @State private var showSheet = false
-    @State private var isARQuickLookLoaded = false
-    
+    @State private var userActivity: NSUserActivity? = nil
+    @State private var isQuickLookVisible = false
+    @State private var selectedModelURL: URL? = nil
+    @State private var isPreviewVisible = false
+
     var body: some View {
-        ZStack {
-            /// ARQuickLook Layer
-            VStack {
-                if let fileURL = localFileURL {
-                    ARQuickLookView(fileURL: fileURL)
-                        .frame(width: 400, height: 400)
-                        .onAppear {
-                            isARQuickLookLoaded = true
-                        }
-                        .onDisappear {
-                            localFileURL = nil
-                            isARQuickLookLoaded = false
-                        }
-                } else {
-//                    ProgressView()
-//                        .scaleEffect(2)
-//                        .frame(width: 300, height: 300)
+           ZStack {
+               VStack {
+                   if localFileURL != nil {
+                       AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+                           image
+                               .resizable()
+                               .scaledToFit()
+                               .frame(width: 400, height: 400)
+                               .onDrag {
+                                   let itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
+                                   let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
+                                   userActivity.isEligibleForHandoff = true
+                                   userActivity.isEligibleForSearch = true
+                                   userActivity.isEligibleForPublicIndexing = true
+                                   userActivity.title = beautifulThing.title
+                                   itemProvider.registerObject(userActivity, visibility: .all)
+                                return itemProvider
+                               }
+                               .highPriorityGesture(DragGesture().onEnded { value in
+                        
+                                       self.isPreviewVisible = true
+                                   
+                               })
+                           
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 400, height: 350)
+                    .background(.clear)
+                    .padding(.bottom, 45)
                 }
             }
             .background(.thinMaterial)
             .glassBackgroundEffect()
-            
-            VStack {
-                Text("") /// Empty view to hide ARQL image.
-            }
-            .frame(width: 300, height: 250)
-//            .glassBackgroundEffect()
-            .background(.clear)
-            .padding(.bottom, 45)
-            
-            /// Invisible rectangle to recognize scrolling over ARQL. Not working as expected on actual hardware. Comment from here to enable/disable:
-            //            Button {
-            //                print("Scrolling")
-            //            } label: {
-            //                Text("")
-            //                    .frame(width: 300, height: 125)
-            //            }
-            //            .buttonBorderShape(.roundedRectangle(radius: 0))
-            //            .buttonStyle(.plain)
-            //            .padding(.bottom, 46)
-            /// end commenting.
-            
-            /// Better Loading View?
-            VStack {
-                AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    ProgressView()
+            .onAppear {
+                if localFileURL != nil {
+                    self.userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
+                    self.userActivity?.isEligibleForHandoff = true
+                    self.userActivity?.isEligibleForSearch = true
+                    self.userActivity?.isEligibleForPublicIndexing = true
+                    self.userActivity?.title = beautifulThing.title
+                    self.userActivity?.becomeCurrent()
                 }
-                .frame(width: 400, height: 350)
-                .background(.clear)
-                .padding(.bottom, 45)
             }
             
             VStack {
@@ -121,10 +117,11 @@ struct CardView: View {
                             }
                         }
                         .buttonStyle(.plain)
+                       
                         
                     }
                 }
-                .padding(.bottom, 30)
+                
                 
             }
             .padding(30)
@@ -132,20 +129,18 @@ struct CardView: View {
             //            .opacity(0.01)
             //            .glassBackgroundEffect()
             .frame(width: 400, height: 400)
-
-            
-            
         }
-        .sheet(isPresented: $showSheet) {
-            DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
+           .sheet(isPresented: $showSheet) {
+                       DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
         }
+        
         .onAppear {
             downloadUSDZFile()
         }
     }
-    
+
     private func downloadUSDZFile() {
-        guard let remoteURL = URL(string: beautifulThing.filename) else { return }
+         guard let remoteURL = URL(string: beautifulThing.filename) else { return }
         
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
@@ -177,7 +172,7 @@ struct CardView: View {
             print("DEBUG: Total directory size: \(totalDirectorySize) MB")
         }
     }
-    
+
     private func calculateTotalDirectorySize() -> Double {
         let fileManager = FileManager.default
         let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask)[0]
