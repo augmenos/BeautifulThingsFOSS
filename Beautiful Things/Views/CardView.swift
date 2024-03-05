@@ -6,6 +6,7 @@
 //
 import SwiftUI
 import RealityKit
+
 struct ManipulationState {
   var transform: AffineTransform3D = .identity
   var active: Bool = false
@@ -32,15 +33,27 @@ struct CardView: View {
                                .scaledToFit()
                                .frame(width: 400, height: 400)
                                .onDrag {
-                                   let itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
-                                   let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
-                                   userActivity.isEligibleForHandoff = true
-                                   userActivity.isEligibleForSearch = true
-                                   userActivity.isEligibleForPublicIndexing = true
-                                   userActivity.title = beautifulThing.title
-                                   itemProvider.registerObject(userActivity, visibility: .all)
-                                return itemProvider
-                               }
+                                           let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
+                                           let itemProvider: NSItemProvider
+                                           
+                                           if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
+                                               let item = NSItemProvider(contentsOf: localFileURL)
+                                               item?.preferredPresentationSize = CGSize(width: 400, height: 400)
+                                               item?.suggestedName = name
+                                               itemProvider = item ?? NSItemProvider()
+                                           } else {
+                                               itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
+                                           }
+                                           
+                                           let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
+                                           userActivity.isEligibleForHandoff = true
+                                           userActivity.isEligibleForSearch = true
+                                           userActivity.isEligibleForPublicIndexing = true
+                                           userActivity.title = name
+                                           
+                                           itemProvider.registerObject(userActivity, visibility: .all)
+                                           return itemProvider
+                                       }
                                .highPriorityGesture(DragGesture().onEnded { value in
                         
                                        self.isPreviewVisible = true
