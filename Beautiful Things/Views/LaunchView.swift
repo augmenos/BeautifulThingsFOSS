@@ -23,8 +23,6 @@ struct LaunchView: View {
         
         ZStack {
             // Background Spacer for ZStack to occupy full screen
-            Spacer()
-            
             // Initial text conditionally shown
             if animationState == .initial {
                 Text("𖡼")
@@ -53,34 +51,33 @@ struct LaunchView: View {
             }
         }
         .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                withAnimation {
-                    animationState = .initial
+                    appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                        withAnimation {
+                            animationState = .initial
+                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                        withAnimation {
+                            animationState = .showFinalText
+                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                        withAnimation {
+                            animationState = .fadeOutFinalText
+                        }
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                        withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
+                            animationState = .completed
+                            appModel.showLaunchScreen = false
+                            showMainView = true // This line triggers the transition to MainView
+                        }
+                    }
                 }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                withAnimation {
-                    animationState = .showFinalText
-                }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                withAnimation {
-                    animationState = .fadeOutFinalText
-                }
-            }
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
-                    animationState = .completed
-                    appModel.showLaunchScreen = false
-                    showMainView = true // This line triggers the transition to MainView
-                }
-            }
-            
-            appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
-        }
     }
 }
 
