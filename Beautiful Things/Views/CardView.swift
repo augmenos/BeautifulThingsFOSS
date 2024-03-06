@@ -22,64 +22,10 @@ struct CardView: View {
     @State private var isQuickLookVisible = false
     @State private var selectedModelURL: URL? = nil
     @State private var isPreviewVisible = false
+    
 
     var body: some View {
-           ZStack {
-               VStack {
-                   if localFileURL != nil {
-                       AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
-                           image
-                               .resizable()
-                               .scaledToFit()
-                               .frame(width: 400, height: 400)
-                               .onDrag {
-                                           let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
-                                           let itemProvider: NSItemProvider
-                                           
-                                           if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
-                                               let item = NSItemProvider(contentsOf: localFileURL)
-                                               item?.preferredPresentationSize = CGSize(width: 400, height: 400)
-                                               item?.suggestedName = name
-                                               itemProvider = item ?? NSItemProvider()
-                                           } else {
-                                               itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
-                                           }
-                                           
-                                           let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
-                                           userActivity.isEligibleForHandoff = true
-                                           userActivity.isEligibleForSearch = true
-                                           userActivity.isEligibleForPublicIndexing = true
-                                           userActivity.title = name
-                                           
-                                           itemProvider.registerObject(userActivity, visibility: .all)
-                                           return itemProvider
-                                       }
-                               .highPriorityGesture(DragGesture().onEnded { value in
-                        
-                                       self.isPreviewVisible = true
-                                   
-                               })
-                           
-                    } placeholder: {
-                        ProgressView()
-                    }
-                    .frame(width: 400, height: 350)
-                    .background(.clear)
-                    .padding(.bottom, 45)
-                }
-            }
-            .background(.thinMaterial)
-            .glassBackgroundEffect()
-            .onAppear {
-                if localFileURL != nil {
-                    self.userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
-                    self.userActivity?.isEligibleForHandoff = true
-                    self.userActivity?.isEligibleForSearch = true
-                    self.userActivity?.isEligibleForPublicIndexing = true
-                    self.userActivity?.title = beautifulThing.title
-                    self.userActivity?.becomeCurrent()
-                }
-            }
+        ZStack {
             
             VStack {
                 HStack {
@@ -130,7 +76,6 @@ struct CardView: View {
                             }
                         }
                         .buttonStyle(.plain)
-                       
                         
                     }
                 }
@@ -138,20 +83,67 @@ struct CardView: View {
                 
             }
             .padding(30)
-            //            .background(.clear)
-            //            .opacity(0.01)
-            //            .glassBackgroundEffect()
+            .background(.thinMaterial)
+            .glassBackgroundEffect()
             .frame(width: 400, height: 400)
+            .sheet(isPresented: $showSheet) {
+                DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
+            }
+            .onAppear {
+                downloadUSDZFile()
+            }
+            VStack {
+                if let localFileURL = self.localFileURL {
+                    Model3D(url: localFileURL) { model in
+                        model
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxDepth:200)
+                            .frame(width: 200, height: 200)
+                            .padding(10)
+                        
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .zIndex(1)
+                }
+            }
         }
-           .sheet(isPresented: $showSheet) {
-                       DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
-        }
+                    .onDrag {
+                                                               let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
+                                                               let itemProvider: NSItemProvider
+                                                               
+                                                               if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
+                                                                   let item = NSItemProvider(contentsOf: localFileURL)
+                                                                   item?.preferredPresentationSize = CGSize(width: 400, height: 400)
+                                                                   item?.suggestedName = name
+                                                                   itemProvider = item ?? NSItemProvider()
+                                                               } else {
+                                                                   itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
+                                                               }
+                                                               
+                                                               let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
+                                                               userActivity.isEligibleForHandoff = true
+                                                               userActivity.isEligibleForSearch = true
+                                                               userActivity.isEligibleForPublicIndexing = true
+                                                               userActivity.title = name
+                                                               
+                                                               itemProvider.registerObject(userActivity, visibility: .all)
+                                                               return itemProvider
+                    }
+                                                   .highPriorityGesture(DragGesture().onEnded { value in
+                                            
+                                                           self.isPreviewVisible = true
+                                                       
+                                                   })
+                
+                
+            
+            .onAppear {
+                downloadUSDZFile()
+            }
         
-        .onAppear {
-            downloadUSDZFile()
-        }
     }
-
     private func downloadUSDZFile() {
          guard let remoteURL = URL(string: beautifulThing.filename) else { return }
         
