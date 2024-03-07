@@ -9,6 +9,7 @@ import SwiftUI
 struct LaunchView: View {
     @Environment(AppModel.self) private var appModel
     @Binding var showMainView: Bool
+    @State private var isLoading = true
     enum AnimationState {
         case initial, showFinalText, fadeOutFinalText, completed
     }
@@ -51,7 +52,6 @@ struct LaunchView: View {
             }
         }
         .onAppear {
-                    appModel.fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
                     DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                         withAnimation {
                             animationState = .initial
@@ -77,6 +77,7 @@ struct LaunchView: View {
                             showMainView = true // This line triggers the transition to MainView
                         }
                     }
+
                 }
     }
 }

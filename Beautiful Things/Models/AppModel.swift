@@ -19,6 +19,10 @@ class AppModel {
     var isTitleFinished: Bool = false
     var finalTitle: String = "Hello Beautiful..."
     
+    init() {
+            fetchAllItems(url: "https://beautifulthings.xyz/category/random-access-memories")
+        }
+    
     func fetchAllItems(url: String) {
         print("DEBUG: Fetching data from \(url)")
         BeautifulThingFetcher.fetchBeautifulThings(url: url) { fetchedItems in

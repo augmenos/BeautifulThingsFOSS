@@ -15,7 +15,7 @@ struct MenuView: View {
     var body: some View {
         NavigationSplitView {
             List(selection: $selectedCategory) {
-                Section(header: Text("For You")) {
+                Section(header: Text("For You").foregroundColor(.gray)) {
                     NavigationLink("Featured", value: "Featured") /// Note to self: fetch data from URL already sorted by new?
                     NavigationLink("Animated", value: "Animated")
                     NavigationLink("New", value: "New")
@@ -23,7 +23,7 @@ struct MenuView: View {
   //                  NavigationLink("All", value: "All") /// Alphabetical
                 }
                 
-                Section(header: Text("Categories")) {
+                Section(header: Text("Categories").foregroundColor(.gray)) {
                     /// Reminder to self: this may not work for categories with multiple words, i.e. "Pop Culture".
                     ForEach(uniqueCategories.sorted(), id: \.self) { category in
                         NavigationLink(category, value: category)
@@ -48,7 +48,7 @@ struct MenuView: View {
                     Text(" ")
                         .font(.system(size: 100))
                         .padding(.trailing, 8)
-                    Text("Pinch and drag to add Things to your world.")
+                    Text("Pinch, hold, and drag to bring Things into your world.")
                         .font(.largeTitle)
                         .fontWeight(.medium)
                 }

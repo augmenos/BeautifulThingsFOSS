@@ -14,6 +14,7 @@ struct DescriptionView: View {
     
     var body: some View {
         ZStack {
+
             VStack {
                 HStack {
                     Text(beautifulThing.subtitle + " " + beautifulThing.title)

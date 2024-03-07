@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79B205DB2B992A92006FB2ED /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B205DA2B992A92006FB2ED /* LoadingView.swift */; };
 		D40E7C322B8B91C200904D9C /* View+WindowGeometryPreferences.swift in Sources */ = {isa = PBXBuildFile; fileRef = D40E7C312B8B91C200904D9C /* View+WindowGeometryPreferences.swift */; };
 		D4267D5E2B853B48005D35D9 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4267D5D2B853B48005D35D9 /* DataModel.swift */; };
 		D4267D612B853E7C005D35D9 /* SwiftSoup in Frameworks */ = {isa = PBXBuildFile; productRef = D4267D602B853E7C005D35D9 /* SwiftSoup */; };
@@ -39,6 +40,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		79B205DA2B992A92006FB2ED /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
 		D40E7C312B8B91C200904D9C /* View+WindowGeometryPreferences.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+WindowGeometryPreferences.swift"; sourceTree = "<group>"; };
 		D4267D5D2B853B48005D35D9 /* DataModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 		D4267D622B85404F005D35D9 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 				D4ED12F52B89362000325367 /* DescriptionView.swift */,
 				D4B70A9F2B87D7C000419269 /* SearchView.swift */,
 				D4ED12F32B891AD600325367 /* AboutView.swift */,
+				79B205DA2B992A92006FB2ED /* LoadingView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				D4267D9D2B86BC43005D35D9 /* TestView.swift in Sources */,
 				D4267D652B8542E9005D35D9 /* GridView.swift in Sources */,
 				D48580E32B85388500542BCB /* NavigationView.swift in Sources */,
+				79B205DB2B992A92006FB2ED /* LoadingView.swift in Sources */,
 				D4267D892B85697E005D35D9 /* PreviewItem.swift in Sources */,
 				D4267D922B8578DC005D35D9 /* AppModel.swift in Sources */,
 				D4267D8D2B856B9B005D35D9 /* PreviewItemDataSource.swift in Sources */,

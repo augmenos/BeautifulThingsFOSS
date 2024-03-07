@@ -22,6 +22,9 @@ struct CardView: View {
     @State private var isQuickLookVisible = false
     @State private var selectedModelURL: URL? = nil
     @State private var isPreviewVisible = false
+    @State private var showHighlight = false
+    @State private var showMessage = false
+    @State private var wiggle = false
     
 
     var body: some View {
@@ -48,6 +51,16 @@ struct CardView: View {
                 }
                 
                 Spacer()
+                // Message UI
+                            if showMessage {
+                                
+                                Text("Pinch and Hold")
+                                    .bold()
+                                    .transition(.opacity)
+                                    .animation(.easeInOut(duration: 1), value: showMessage)
+                                    
+                                
+                            }
                 
                 HStack {
                     VStack(alignment: .leading) {
@@ -81,14 +94,26 @@ struct CardView: View {
                 }
                 
                 
+                
             }
+            
+            
             .padding(30)
             .background(.thinMaterial)
             .glassBackgroundEffect()
             .frame(width: 400, height: 400)
+            // Highlight effect
+            RoundedRectangle(cornerRadius: 45.0, style: .continuous)
+                .foregroundColor(showHighlight ? .gray : .clear)
+                .opacity(showHighlight ? 0.3 : 0)
+                .frame(width: 400, height: 400)
+                .transition(.opacity)
+                .animation(.easeOut, value: showHighlight)
+            
             .sheet(isPresented: $showSheet) {
                 DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
             }
+            
             .onAppear {
                 downloadUSDZFile()
             }
@@ -98,17 +123,24 @@ struct CardView: View {
                         model
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(maxDepth:200)
+                            .frame(maxDepth:100)
                             .frame(width: 200, height: 200)
                             .padding(10)
+                        // Wiggle effect
+                                    .rotationEffect(.degrees(wiggle ? -1 : 1), anchor: .center)
+                                    .animation(.easeInOut(duration: 0.2).repeatCount(6, autoreverses: true), value: wiggle)
+                       
                         
                     } placeholder: {
                         ProgressView()
                     }
                     .zIndex(1)
                 }
+                
+                
             }
         }
+        
                     .onDrag {
                                                                let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
                                                                let itemProvider: NSItemProvider
@@ -136,12 +168,33 @@ struct CardView: View {
                                                            self.isPreviewVisible = true
                                                        
                                                    })
-                
+                                                   .onTapGesture {
+                                                    // Trigger the effects
+                                                       self.showHighlight = true
+                                                       self.wiggle = true
+                                                       self.showMessage = true
+                                                       // Wiggle effect
+                                                       DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                                                                                       self.wiggle = false
+                                                                                   }
+                                                                   
+                                                                               // Hide the highlight after 3 seconds
+                                                                               DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                                                   self.showHighlight = false
+                                                                               }
+                                                       // Hide the message after 3 seconds
+                                                                                  DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                                                                                      self.showMessage = false
+                                                                                    
+                                                                                  }
+                                                                           }
                 
             
             .onAppear {
                 downloadUSDZFile()
             }
+        
+        
         
     }
     private func downloadUSDZFile() {
