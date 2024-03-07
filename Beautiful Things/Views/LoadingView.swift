@@ -11,10 +11,9 @@ struct LoadingView: View {
 
     var body: some View {
         ZStack {
-            Color(.systemBackground)
-                .edgesIgnoringSafeArea(.all)
-                // Assuming .glassBackgroundEffect() is a valid extension you have for SwiftUI Views
-                .glassBackgroundEffect()
+           // Color(.systemBackground)
+           //     .edgesIgnoringSafeArea(.all)
+           //     .glassBackgroundEffect()
 
             VStack(spacing: 40) {
                 ProgressView()
