@@ -4,7 +4,6 @@
 //
 //  This view displays a card UI for each "Beautiful Thing", with interactions such as favoriting, viewing details, and displaying a 3D model.
 //
-//
 
 import SwiftUI
 import RealityKit
@@ -34,7 +33,12 @@ struct CardView: View {
     @State private var showMessage = false
     // Controls the wiggle animation effect.
     @State private var wiggle = false
-
+    //State variables to track the drag offset
+    @State private var dragOffset = CGSize.zero
+    // New state variable to store the NSItemProvider instance
+    @State private var itemProvider: NSItemProvider?
+    
+    
     var body: some View {
         ZStack {
             // Card main content.
@@ -81,100 +85,102 @@ struct CardView: View {
                     Spacer()
                     
                     // Share button.
-                    VStack(alignment: .trailing) {
-                        Button {
-                            showSheet = true
-                        } label: {
-                            VStack(alignment: .trailing) {
-                                Image(systemName: "arrow.up.right")
-                                    .padding(10)
-                                    .font(.callout)
-                                    .foregroundStyle(.secondary)
-                                    .padding(.bottom, 2)
-                            }
-                        }
-                        .buttonStyle(.plain)
+                    Button {
+                        showSheet = true
+                    } label: {
+                        Image(systemName: "arrow.up.right")
+                            .padding(10)
+                            .font(.callout)
+                            .foregroundStyle(.secondary)
+                            .padding(.bottom, 2)
                     }
+                    .buttonStyle(.plain)
                 }
             }
+            // Highlight effect.
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 45.0, style: .continuous)
+                                .foregroundColor(showHighlight ? .gray : .clear)
+                                .frame(width: 400, height: 400)
+                                .opacity(showHighlight ? 0.3 : 0)
+                                .transition(.opacity)
+                                .animation(.easeOut, value: showHighlight)
+                        )
             .padding(30)
             .background(.thinMaterial)
             .glassBackgroundEffect()
             .frame(width: 400, height: 400)
-            // Highlight effect.
-            .overlay(
-                RoundedRectangle(cornerRadius: 45.0, style: .continuous)
-                    .foregroundColor(showHighlight ? .gray : .clear)
-                    .opacity(showHighlight ? 0.3 : 0)
-                    .transition(.opacity)
-                    .animation(.easeOut, value: showHighlight)
-            )
-            .sheet(isPresented: $showSheet) {
-                DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
-            }
             
-            // 3D model display.
+            
+            // 3D model display with improved gesture handling.
             VStack {
-                if let localFileURL = self.localFileURL {
-                    Model3D(url: localFileURL) { model in
-                        model
+                if localFileURL != nil {
+                    AsyncImage(url: URL(string: beautifulThing.imageURL)) { image in
+                        image
                             .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(maxDepth: 200)
-                            .frame(width: 200, height: 200)
-                            .padding(10)
+                            .scaledToFit()
+                            .frame(width: 300, height: 300)
                             .rotationEffect(.degrees(wiggle ? -1 : 1), anchor: .center)
                             .animation(.easeInOut(duration: 0.2).repeatCount(6, autoreverses: true), value: wiggle)
+                                                    
+                            .offset(x: dragOffset.width, y: dragOffset.height)
+                            .onDrag {
+                                        let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
+                                        let itemProvider: NSItemProvider
+                                        
+                                        if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
+                                            let item = NSItemProvider(contentsOf: localFileURL)
+                                            item?.preferredPresentationSize = CGSize(width: 400, height: 400)
+                                            item?.suggestedName = name
+                                            itemProvider = item ?? NSItemProvider()
+                                        } else {
+                                            itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
+                                        }
+                                        
+                                        let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
+                                        userActivity.isEligibleForHandoff = true
+                                        userActivity.isEligibleForSearch = true
+                                        userActivity.isEligibleForPublicIndexing = true
+                                        userActivity.title = name
+                                        
+                                        itemProvider.registerObject(userActivity, visibility: .all)
+                                        return itemProvider
+                                    }
+                            .highPriorityGesture(DragGesture().onEnded { value in
+                                
+                                self.isPreviewVisible = true
+                                
+                            })
+                        
                     } placeholder: {
                         ProgressView()
                     }
-                    .zIndex(1)
+                    
                 }
             }
-        }
-        // Drag and drop support for the 3D model.
-        .onDrag {
-            let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
-            let itemProvider: NSItemProvider
             
-            if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
-                let item = NSItemProvider(contentsOf: localFileURL)
-                item?.preferredPresentationSize = CGSize(width: 400, height: 400)
-                item?.suggestedName = name
-                itemProvider = item ?? NSItemProvider()
-            } else {
-                itemProvider = NSItemProvider(contentsOf: self.localFileURL) ?? NSItemProvider()
-            }
-            
-            let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
-            userActivity.isEligibleForHandoff = true
-            userActivity.isEligibleForSearch = true
-            userActivity.isEligibleForPublicIndexing = true
-            userActivity.title = name
-            
-            itemProvider.registerObject(userActivity, visibility: .all)
-            return itemProvider
         }
-        .highPriorityGesture(DragGesture().onEnded { value in
-            self.isPreviewVisible = true
-        })
-        .onTapGesture {
-            // Trigger effects on tap.
-            self.showHighlight = true
-            self.wiggle = true
-            self.showMessage = true
-            // Schedule end of animations.
-            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                self.wiggle = false
+        
+            .onTapGesture {
+                // Trigger effects on tap.
+                self.showHighlight = true
+                self.wiggle = true
+                self.showMessage = true
+                // Schedule end of animations.
+                DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                    self.wiggle = false
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+                    self.showHighlight = false
+                    self.showMessage = false
+                }
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.showHighlight = false
-                self.showMessage = false
+            .sheet(isPresented: $showSheet) {
+                DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
             }
-        }
-        .onAppear {
-            downloadUSDZFile()
-        }
+            .onAppear {
+                downloadUSDZFile()
+            }
     }
 
     // Downloads and caches the USDZ file for the 3D model.
@@ -234,4 +240,3 @@ struct CardView: View {
         }
     }
 }
-
