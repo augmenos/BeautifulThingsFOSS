@@ -128,7 +128,7 @@ struct CardView: View {
                                         let name = self.localFileURL?.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ") ?? "Untitled"
                                         let itemProvider: NSItemProvider
                                         
-                                        if let localFileURL = self.localFileURL, localFileURL.pathExtension == "usdz" {
+                                        if let localFileURL = self.localFileURL, ["usdz", "reality"].contains(localFileURL.pathExtension) {
                                             let item = NSItemProvider(contentsOf: localFileURL)
                                             item?.preferredPresentationSize = CGSize(width: 400, height: 400)
                                             item?.suggestedName = name
