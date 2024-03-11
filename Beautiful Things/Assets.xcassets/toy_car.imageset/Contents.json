@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "toy_car.png",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

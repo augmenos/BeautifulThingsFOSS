@@ -11,10 +11,6 @@ struct LoadingView: View {
 
     var body: some View {
         ZStack {
-           // Color(.systemBackground)
-           //     .edgesIgnoringSafeArea(.all)
-           //     .glassBackgroundEffect()
-
             VStack(spacing: 40) {
                 ProgressView()
                     .progressViewStyle(CircularProgressViewStyle())

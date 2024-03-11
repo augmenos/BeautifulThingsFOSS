@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  LaunchView.swift
 //  Beautiful Things
 //
 //  Created by Miguel Garcia Gonzalez on 2/20/24.
@@ -52,33 +52,33 @@ struct LaunchView: View {
             }
         }
         .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                        withAnimation {
-                            animationState = .initial
-                        }
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                        withAnimation {
-                            animationState = .showFinalText
-                        }
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
-                        withAnimation {
-                            animationState = .fadeOutFinalText
-                        }
-                    }
-                    
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                        withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
-                            animationState = .completed
-                            appModel.showLaunchScreen = false
-                            showMainView = true // This line triggers the transition to MainView
-                        }
-                    }
-
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                withAnimation {
+                    animationState = .initial
                 }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+                withAnimation {
+                    animationState = .showFinalText
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+                withAnimation {
+                    animationState = .fadeOutFinalText
+                }
+            }
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+                withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
+                    animationState = .completed
+                    appModel.showLaunchScreen = false
+                    showMainView = true // This line triggers the transition to MainView
+                }
+            }
+            
+        }
     }
 }
 

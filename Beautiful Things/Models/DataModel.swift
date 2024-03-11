@@ -6,9 +6,8 @@
 //
 
 import Foundation
-import SwiftSoup
 
-class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
+class BeautifulThing: Identifiable, ObservableObject, Codable, Hashable, Equatable {
     var id: String { filename }
     var title: String
     var subtitle: String
@@ -17,35 +16,18 @@ class BeautifulThing: Identifiable, ObservableObject, Hashable, Equatable {
     var featured: String
     var animated: String
     var year: String
-    var imageURL: String
-    
-    @Published var isFavorited: Bool = false
+    var image: String
+    var isFavorited: Bool
     var descriptionText: String
     var modelName: String
     var modelAuthor: String
     var license: String
-    
-    init(title: String, subtitle: String, filename: String, category: String, year: String, imageURL: String, descriptionText: String, modelName: String, modelAuthor: String, license: String, featured: String, animated: String) {
-        self.title = title
-        self.subtitle = subtitle
-        self.filename = filename
-        self.category = category
-        self.year = year
-        self.imageURL = imageURL
-        
-        self.descriptionText = descriptionText
-        self.modelName = modelName
-        self.modelAuthor = modelAuthor
-        self.license = license
-        self.featured = featured
-        self.animated = animated
-    }
-    
+
     static func == (lhs: BeautifulThing, rhs: BeautifulThing) -> Bool {
         return lhs.id == rhs.id
     }
-    
+
     func hash(into hasher: inout Hasher) {
-        hasher.combine(title)
+        hasher.combine(id)
     }
 }

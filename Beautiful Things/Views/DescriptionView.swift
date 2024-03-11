@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-import SwiftSoup
 
 struct DescriptionView: View {
     @Binding var showSheet: Bool
@@ -67,14 +66,6 @@ struct DescriptionView: View {
         }
         .frame(width: 500, height: 300)
         .padding(30)
-//        .onAppear {
-//            fetchBeautifulThingInfo(beautifulThing: beautifulThing) { description, modelName, modelAuthor, license in
-//                self.descriptionText = description
-//                self.modelName = modelName
-//                self.modelAuthor = modelAuthor
-//                self.license = license
-//            }
-//        }
     }
 }
 

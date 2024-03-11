@@ -2,7 +2,7 @@
 //  MainView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/22/24.
+//  The top level navigation stack for the app.
 //
 
 import SwiftUI
