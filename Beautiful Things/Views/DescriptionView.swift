@@ -11,7 +11,7 @@ struct DescriptionView: View {
     // The beautiful thing being selected in CardView.
     var beautifulThing: BeautifulThing
     
-    // Binding variable to keep track of .sheet visible state.
+    // Binding variable to keep track of .sheet state.
     @Binding var showSheet: Bool
     
     var body: some View {

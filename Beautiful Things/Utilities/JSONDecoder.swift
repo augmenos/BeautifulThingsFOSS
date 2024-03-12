@@ -2,7 +2,7 @@
 //  JSONDecoder.swift
 //  Beautiful Things
 //
-//  Simple decoder for local JSON file.
+//  Simple decoder for local JSON file. Models from https://developer.apple.com/augmented-reality/quick-look/.
 //
 
 import Foundation

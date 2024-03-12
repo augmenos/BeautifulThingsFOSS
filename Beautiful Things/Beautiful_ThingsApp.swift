@@ -2,7 +2,7 @@
 //  Beautiful_ThingsApp.swift
 //  Beautiful Things
 //
-//  Created by Augmenos (Miguel Garcia Gonzalez) on 2/20/24.
+//  Created by Augmenos on 2/20/24.
 //
 
 import SwiftUI
@@ -24,7 +24,7 @@ struct Beautiful_ThingsApp: App {
                     .transition(.opacity)
             }
         }
-        .environment(appModel) // Provide the appModel to all views within the group
+        .environment(appModel) // Provide the appModel to all views within the group.
         .windowStyle(.plain)
         .defaultSize(width: 1300, height: 950)
     }

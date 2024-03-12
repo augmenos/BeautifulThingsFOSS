@@ -2,7 +2,7 @@
   "Beautiful_Things_Sample": [
     {
       "title": "Toy Car",
-      "subtitle": "A classic toy car",
+      "subtitle": "Classic",
       "filename": "toy_car",
       "category": "Toys",
       "featured": "Yes",
@@ -12,12 +12,12 @@
       "isFavorited": false,
       "descriptionText": "A beautiful vintage toy car.",
       "modelName": "Toy Car Model",
-      "modelAuthor": "John Doe",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
       "title": "Gramophone",
-      "subtitle": "An antique gramophone",
+      "subtitle": "20th Century",
       "filename": "gramophone",
       "category": "Music",
       "featured": "Yes",
@@ -27,12 +27,12 @@
       "isFavorited": false,
       "descriptionText": "A classic gramophone from the early 20th century.",
       "modelName": "Gramophone Model",
-      "modelAuthor": "Jane Smith",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
       "title": "Teapot",
-      "subtitle": "A ceramic teapot",
+      "subtitle": "Ceramic",
       "filename": "teapot",
       "category": "Kitchenware",
       "featured": "No",
@@ -42,12 +42,12 @@
       "isFavorited": false,
       "descriptionText": "A traditional ceramic teapot.",
       "modelName": "Teapot Model",
-      "modelAuthor": "Alice Johnson",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Swan Chair",
-      "subtitle": "A modernist chair",
+      "title": "Chair",
+      "subtitle": "Modernist",
       "filename": "chair_swan",
       "category": "Furniture",
       "featured": "Yes",
@@ -57,12 +57,12 @@
       "isFavorited": false,
       "descriptionText": "A stylish swan chair designed by Arne Jacobsen.",
       "modelName": "Swan Chair Model",
-      "modelAuthor": "Arne Jacobsen",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Retro TV",
-      "subtitle": "A vintage television",
+      "title": "Television",
+      "subtitle": "Vintage",
       "filename": "tv_retro",
       "category": "Electronics",
       "featured": "No",
@@ -72,12 +72,12 @@
       "isFavorited": false,
       "descriptionText": "A retro TV from the 1960s.",
       "modelName": "Retro TV Model",
-      "modelAuthor": "Bob Williams",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Toy Drummer",
-      "subtitle": "A toy soldier drummer",
+      "title": "Drummer",
+      "subtitle": "Toy",
       "filename": "toy_drummer_idle",
       "category": "Toys",
       "featured": "No",
@@ -87,12 +87,12 @@
       "isFavorited": false,
       "descriptionText": "A toy drummer soldier, perfect for the holiday season.",
       "modelName": "Toy Drummer Model",
-      "modelAuthor": "Charlie Brown",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Fender Stratocaster",
-      "subtitle": "A legendary guitar",
+      "title": "Stratocaster",
+      "subtitle": "Fender",
       "filename": "fender_stratocaster",
       "category": "Music",
       "featured": "Yes",
@@ -102,12 +102,12 @@
       "isFavorited": false,
       "descriptionText": "The iconic Fender Stratocaster guitar.",
       "modelName": "Stratocaster Model",
-      "modelAuthor": "Leo Fender",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Tulip Flower",
-      "subtitle": "A beautiful tulip",
+      "title": "Flower",
+      "subtitle": "Tulip",
       "filename": "flower_tulip",
       "category": "Nature",
       "featured": "No",
@@ -117,12 +117,12 @@
       "isFavorited": false,
       "descriptionText": "A vibrant tulip flower.",
       "modelName": "Tulip Model",
-      "modelAuthor": "Flora Holland",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
       "title": "Toy Biplane",
-      "subtitle": "A vintage toy plane",
+      "subtitle": "Vintage",
       "filename": "toy_biplane_idle",
       "category": "Toys",
       "featured": "No",
@@ -132,12 +132,12 @@
       "isFavorited": false,
       "descriptionText": "A classic toy biplane, ready for takeoff.",
       "modelName": "Biplane Model",
-      "modelAuthor": "Wright Brothers",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     },
     {
-      "title": "Walking Robot",
-      "subtitle": "A futuristic robot",
+      "title": "Robot",
+      "subtitle": "Futuristic",
       "filename": "robot_walk_idle",
       "category": "Technology",
       "featured": "Yes",
@@ -147,8 +147,8 @@
       "isFavorited": false,
       "descriptionText": "A walking robot, showcasing the future of technology.",
       "modelName": "Robot Model",
-      "modelAuthor": "Tech Innovators",
-      "license": "Creative Commons"
+      "modelAuthor": "Unknown",
+      "license": "Apple Inc."
     }
   ]
 }

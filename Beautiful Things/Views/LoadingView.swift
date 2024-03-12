@@ -2,7 +2,7 @@
 //  LoadingView.swift
 //  Beautiful Things
 //
-//  An additional loading view if downloading large sets of data.
+//  An additional loading view if loading large sets of data.
 //
 
 import SwiftUI
