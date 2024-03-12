@@ -37,6 +37,8 @@ struct CardView: View {
     @State private var dragOffset = CGSize.zero
     // New state variable to store the NSItemProvider instance
     @State private var itemProvider: NSItemProvider?
+    // Local image for the beautiful thing.
+    @State private var usdzImage: UIImage?
     
     var body: some View {
         ZStack {
@@ -104,9 +106,8 @@ struct CardView: View {
             .frame(width: 400, height: 400)
             
             VStack {
-                if let localFileURL = localFileURL {
-                    AsyncImage(url: localFileURL) { image in
-                        image
+                if localFileURL != nil {
+                    Image(uiImage: usdzImage!)
                             .resizable()
                             .scaledToFit()
                             .frame(width: 300, height: 300)
@@ -114,7 +115,7 @@ struct CardView: View {
                             .animation(.easeInOut(duration: 0.2).repeatCount(6, autoreverses: true), value: wiggle)
                             .offset(x: dragOffset.width, y: dragOffset.height)
                             .onDrag {
-                                let name = localFileURL.deletingPathExtension().lastPathComponent.replacingOccurrences(of: "_", with: " ")
+                                let name = beautifulThing.title
                                 let itemProvider = NSItemProvider(contentsOf: localFileURL) ?? NSItemProvider()
                                 let userActivity = NSUserActivity(activityType: "com.apple.cocoa.touch.3dmodel")
                                 userActivity.isEligibleForHandoff = true
@@ -127,9 +128,8 @@ struct CardView: View {
                             .highPriorityGesture(DragGesture().onEnded { value in
                                 self.isPreviewVisible = true
                             })
-                    } placeholder: {
-                        ProgressView()
-                    }
+                } else {
+                    ProgressView()
                 }
             }
         }
@@ -146,22 +146,28 @@ struct CardView: View {
             }
         }
         .sheet(isPresented: $showSheet) {
-            DescriptionView(showSheet: $showSheet, beautifulThing: beautifulThing)
+            DescriptionView(beautifulThing: beautifulThing, showSheet: $showSheet)
         }
         .onAppear {
             loadLocalUSDZFile()
         }
     }
     
-    // Loads the USDZ file from the main bundle.
+    // Loads the USDZ file from the main bundle within folder "USDZ".
     private func loadLocalUSDZFile() {
         let folderName = "USDZ"
         guard let bundleURL = Bundle.main.url(forResource: beautifulThing.filename, withExtension: "usdz", subdirectory: folderName) else {
-            print("Error: USDZ file not found in main bundle")
+            print("Error: USDZ file not found in main bundle.")
             return
         }
-        print("USDZ file found: \(bundleURL)")
         self.localFileURL = bundleURL
+        
+        // Load the image for the USDZ model from the main bundle within Assets.
+        if let image = UIImage(named: beautifulThing.image) {
+            self.usdzImage = image
+        } else {
+            print("Error: Image not found in main bundle.")
+        }
     }
 }
 

@@ -2,7 +2,7 @@
 //  JSONDecoder.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 3/11/24.
+//  Simple decoder for local JSON file.
 //
 
 import Foundation

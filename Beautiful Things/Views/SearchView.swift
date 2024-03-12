@@ -2,25 +2,26 @@
 //  SearchView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/22/24.
+//  A search view that filters through the beautifulThings array.
 //
 
 import SwiftUI
 
 struct SearchView: View {
     @Environment(AppModel.self) private var appModel
+    
+    // The initial search, i.e. an empty string.
     @State private var searchText = ""
     
     var filteredItems: [BeautifulThing] {
         let items = appModel.beautifulThings
             .filter {
                 searchText.isEmpty ||
-                $0.title.localizedCaseInsensitiveContains(searchText) ||
-                $0.subtitle.localizedCaseInsensitiveContains(searchText) ||
-                $0.descriptionText.localizedCaseInsensitiveContains(searchText)
+                $0.title.localizedCaseInsensitiveContains(searchText) || // Searches for words in the title.
+                $0.subtitle.localizedCaseInsensitiveContains(searchText) || // Searches for words in the subtitle.
+                $0.descriptionText.localizedCaseInsensitiveContains(searchText) // Searches for words in the description.
             }
             .sorted { $0.title < $1.title }
-        print("Total items: \(appModel.beautifulThings.count), Filtered items: \(items.count)")
         return items
     }
     
@@ -45,8 +46,10 @@ struct SearchView: View {
                     }
                 )
             
+            // A list that displays the results of the search.
             List {
                 ForEach(filteredItems) { item in
+                    // Each result is a link to a CardView for that beautiful thing.
                     NavigationLink(destination: CardView(beautifulThing: item)) {
                         HStack {
                             Text(item.subtitle)
@@ -56,8 +59,6 @@ struct SearchView: View {
                         .foregroundStyle(.primary)
                         .padding(.vertical, 8)
                     }
-                    //.frame(maxWidth: .infinity, alignment: .leading)
-                    //.listRowSeparator(.thin, edges: .bottom) /// Showing double lines, not working as expected.
                 }
             }
             .listStyle(PlainListStyle())

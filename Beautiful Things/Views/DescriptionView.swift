@@ -2,18 +2,20 @@
 //  DescriptionView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/23/24.
+//  The view showing details of the model such as description, author, and license. Presented as a .sheet in CardView.
 //
 
 import SwiftUI
 
 struct DescriptionView: View {
-    @Binding var showSheet: Bool
+    // The beautiful thing being selected in CardView.
     var beautifulThing: BeautifulThing
+    
+    // Binding variable to keep track of .sheet visible state.
+    @Binding var showSheet: Bool
     
     var body: some View {
         ZStack {
-
             VStack {
                 HStack {
                     Text(beautifulThing.subtitle + " " + beautifulThing.title)
@@ -48,7 +50,6 @@ struct DescriptionView: View {
                     Spacer()
                     
                     Button(action: {
-                        print("Button: Close DescriptionView")
                         showSheet = false
                     }) {
                         Image(systemName: "xmark.circle.fill")

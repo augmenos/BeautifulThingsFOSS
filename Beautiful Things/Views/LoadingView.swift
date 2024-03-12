@@ -2,7 +2,7 @@
 //  LoadingView.swift
 //  Beautiful Things
 //
-//  Created by Matthew Hoerl on 3/6/24.
+//  An additional loading view if downloading large sets of data.
 //
 
 import SwiftUI

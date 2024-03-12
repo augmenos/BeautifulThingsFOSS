@@ -2,7 +2,7 @@
 //  AppModel.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/20/24.
+//  The app's main model.
 //
 
 import SwiftUI
@@ -14,15 +14,12 @@ class AppModel {
     var beautifulThings: [BeautifulThing] = []
     var userFavorites: [BeautifulThing] = []
     
-    var titleText: String = ""
-    var isTitleFinished: Bool = false
-    var finalTitle: String = "Hello Beautiful..."
-    
     init() {
         self.beautifulThings = loadBeautifulThings()
         self.loadFavorites()
     }
     
+    // A method that filters through predefined categories.
     func filterItems(forCategory category: String) -> [BeautifulThing] {
         switch category.lowercased() {
         case "new":
@@ -40,6 +37,7 @@ class AppModel {
         }
     }
     
+    // A method to toggle and save favorites/loved using the filename as the unique identifier for each thing.
     func toggleFavorite(_ beautifulThing: BeautifulThing) {
         if let index = beautifulThings.firstIndex(where: { $0.filename == beautifulThing.filename }) {
             beautifulThings[index].isFavorited.toggle()
@@ -49,21 +47,22 @@ class AppModel {
                 userFavorites.removeAll { $0.filename == beautifulThing.filename }
             }
             saveFavorites()
-            print("DEBUG: User favorites count: \(userFavorites.count)")
         }
     }
     
+    // A method to save user favorites to UserDefaults.
     private func saveFavorites() {
-        // Convert userFavorites to an array of filenames
+        // Convert userFavorites to an array of filenames.
         let filenames = userFavorites.map { $0.filename }
-        // Save the filenames array to UserDefaults
+        // Save the filenames array to UserDefaults.
         UserDefaults.standard.set(filenames, forKey: "userFavorites")
     }
     
+    // A method to load user favorites.
     private func loadFavorites() {
-        // Load the filenames array from UserDefaults
+        // Load the filenames array from UserDefaults.
         if let filenames = UserDefaults.standard.array(forKey: "userFavorites") as? [String] {
-            // Update the isFavorited property for each item in beautifulThings
+            // Update the isFavorited property for each item in beautifulThings.
             for filename in filenames {
                 if let index = beautifulThings.firstIndex(where: { $0.filename == filename }) {
                     beautifulThings[index].isFavorited = true

@@ -2,7 +2,7 @@
 //  MenuView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/28/24.
+//  The main content view in a NavigationSplitView showing the categories and grid of cards.
 //
 
 import SwiftUI
@@ -10,7 +10,6 @@ import SwiftUI
 struct MenuView: View {
     @Environment(AppModel.self) private var appModel
     @State private var selectedCategory: String? = "Featured"
-    @State private var isLargeGridView: Bool = true
     
     var body: some View {
         NavigationSplitView {
@@ -22,6 +21,7 @@ struct MenuView: View {
                 }
                 
                 Section(header: Text("Categories").foregroundColor(.gray)) {
+                    // Generate a list of categories for each unique category in the dataset.
                     ForEach(uniqueCategories.sorted(), id: \.self) { category in
                         NavigationLink(category, value: category)
                     }
@@ -41,14 +41,15 @@ struct MenuView: View {
                 }
                 .padding()
                 
+                // Update GridView based on the selected category.
                 if let selectedCategory = selectedCategory {
-                        GridLargeView(selectedCategory: selectedCategory)
+                        GridView(selectedCategory: selectedCategory)
                 }
             }
-            .padding(.top, -100)
+            .padding(.top, -100) // Negative padding to move the "Pinch, hold..." text above the GridView's ScrollView.
         }
         .navigationDestination(for: String.self) { category in
-                GridLargeView(selectedCategory: category)
+                GridView(selectedCategory: category)
         }
     }
     

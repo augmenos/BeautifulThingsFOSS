@@ -22,7 +22,7 @@ struct MainView: View {
                             Label("Home", systemImage: "house")
                         }
                     
-                    GridLargeView(selectedCategory: "Loved")
+                    GridView(selectedCategory: "Loved")
                         .padding(.vertical, 30)
                         .frame(width: 1000)
                         .glassBackgroundEffect()

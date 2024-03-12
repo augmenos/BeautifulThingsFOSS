@@ -1,13 +1,13 @@
 //
-//  GridLargeView.swift
+//  GridView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/28/24.
+//  A ScrollView presenting each CardView for the specific category in a column of 2.
 //
 
 import SwiftUI
 
-struct GridLargeView: View {
+struct GridView: View {
     @Environment(AppModel.self) private var appModel
     var selectedCategory: String
     

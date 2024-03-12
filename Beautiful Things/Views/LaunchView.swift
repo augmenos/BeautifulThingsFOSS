@@ -2,7 +2,7 @@
 //  LaunchView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/20/24.
+//  The first view upon launching the app. 
 //
 import SwiftUI
 
@@ -15,16 +15,16 @@ struct LaunchView: View {
     }
     
     @State private var animationState = AnimationState.initial
-    @State private var displayedText = "" // New state variable for the animated text
+    @State private var displayedText = "" // New state variable for the animated text.
     
-    let fullText = "Hello Beautiful" // The full text to display
-    let typingAnimationDelay = 0.15 // Delay between each character
+    let fullText = "Hello Beautiful" // The full text to display.
+    let typingAnimationDelay = 0.15 // Delay between each character.
     
     var body: some View {
         
         ZStack {
-            // Background Spacer for ZStack to occupy full screen
-            // Initial text conditionally shown
+            // Background Spacer for ZStack to occupy full screen.
+            // Initial text conditionally shown.
             if animationState == .initial {
                 Text("𖡼")
                     .font(.system(size: 200))
@@ -33,7 +33,7 @@ struct LaunchView: View {
                     .transition(.opacity)
             }
             
-            // Final text conditionally shown
+            // Final text conditionally shown.
             if animationState == .showFinalText || animationState == .fadeOutFinalText {
                 Text(displayedText)
                     .font(.extraLargeTitle)
@@ -52,6 +52,7 @@ struct LaunchView: View {
             }
         }
         .onAppear {
+            // Timing the animation states.
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 withAnimation {
                     animationState = .initial
@@ -71,10 +72,10 @@ struct LaunchView: View {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-                withAnimation(.easeInOut(duration: 2.0)) { // Increase the duration here
+                withAnimation(.easeInOut(duration: 2.0)) {
                     animationState = .completed
                     appModel.showLaunchScreen = false
-                    showMainView = true // This line triggers the transition to MainView
+                    showMainView = true // This line triggers the transition to MainView.
                 }
             }
             

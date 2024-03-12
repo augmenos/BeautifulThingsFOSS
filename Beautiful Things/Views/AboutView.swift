@@ -2,7 +2,7 @@
 //  AboutView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/23/24.
+//  A simple about view with external links that opens Safari.
 //
 
 import SwiftUI

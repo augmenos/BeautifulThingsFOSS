@@ -2,7 +2,7 @@
 //  Beautiful_ThingsApp.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 2/20/24.
+//  Created by Augmenos (Miguel Garcia Gonzalez) on 2/20/24.
 //
 
 import SwiftUI

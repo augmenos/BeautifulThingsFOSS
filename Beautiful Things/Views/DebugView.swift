@@ -2,7 +2,7 @@
 //  DebugView.swift
 //  Beautiful Things
 //
-//  Created by Miguel Garcia Gonzalez on 3/11/24.
+//  A debug view to test the JSON decoder and loading.
 //
 
 import SwiftUI
