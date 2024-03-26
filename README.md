@@ -1,13 +1,17 @@
-# Beautiful Things Sample
+# Beautiful Things VisionOS App Template
 
-This app presents a gallery of USDZ models in visionOS.
-The app uses windows and ARQuickLook(?) to present information.
-Models can be searched, favorited, and dragged into a user's environment.
+The Beautiful Things App Template is an open source VisionOS app template to present a gallery of 3d models. 
 
-This sample app is open source, based on the original [Beautiful Things](https://beautifulthings.xyz) app and website.
-The models are from Apple's [ARQuickLook page](https://developer.apple.com/augmented-reality/quick-look/).
-For more information about the app and how it works, refer to
-the in-line documenation. You can also reach us with questions.
+Designed as an extension of the [Beautiful Things](https://beautifulthings.xyz) website, the app uses windows and AR Quick Look to present information. 3D Models can be searched, favorited, and dragged into a user's environment.
 
-Developed by [Augmenos](https://www.augmenos.com) with support from
-[Matthew Hoerl](https://twitter.com/MattHoerl).
+## Why would I use this?
+* **Jumpstart Your Project** → Leverage the power of USDZ + ARQuickLook to power your VisionOS app.
+* **Speed and Simplicity** → Ideal for rapid app creation without compromising on quality.
+* **Learning Opportunity** → If you're delving into VisionOS app development, this template is a perfect starting point. 
+
+For more information about the app and how it works, refer to the in-line documenation. You can also reach us with questions. If you use this template, please contribute to this repo as you build cool Things with it.
+
+## Contact
+If you have any questions reach out to us on Twitter, [@AugmenosStudio](https://www.twitter.com/augmenosstudio) or [@beautiful___xyz](https://www.twitter.com/beautiful___xyz). 
+
+Developed by [Augmenos](https://www.augmenos.com) + [Matthew Hoerl](https://twitter.com/MattHoerl).
