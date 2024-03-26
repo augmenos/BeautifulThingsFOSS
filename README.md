@@ -1,6 +1,6 @@
 # Beautiful Things VisionOS App Template
 
-The Beautiful Things App Template is an open source VisionOS app template to present a gallery of 3d models. 
+The Beautiful Things App Template is a free and open source software (FOSS) app template for visionOS to present a gallery of 3d models. 
 
 Designed as an extension of the [Beautiful Things](https://beautifulthings.xyz) website, the app uses windows and AR Quick Look to present information. 3D Models can be searched, favorited, and dragged into a user's environment.
 
